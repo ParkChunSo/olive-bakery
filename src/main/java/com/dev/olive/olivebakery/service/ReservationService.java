@@ -65,6 +65,7 @@ public class ReservationService {
     public void updateReservationType(Long reservationId) {
         Reservation reservation = findById(reservationId);
         reservation.updateReservationType();
+        reservationRepository.save(reservation);
     }
 
 
