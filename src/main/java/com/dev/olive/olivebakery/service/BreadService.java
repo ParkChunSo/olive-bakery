@@ -1,4 +1,4 @@
-package com.dev.olive.olivebakery.service.bread;
+package com.dev.olive.olivebakery.service;
 
 import com.dev.olive.olivebakery.model.entity.Bread;
 import com.dev.olive.olivebakery.repository.BreadRepository;

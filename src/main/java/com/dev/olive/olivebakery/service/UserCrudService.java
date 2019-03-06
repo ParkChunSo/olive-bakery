@@ -1,4 +1,4 @@
-package com.dev.olive.olivebakery.service.user;
+package com.dev.olive.olivebakery.service;
 
 import com.dev.olive.olivebakery.model.entity.User;
 import com.dev.olive.olivebakery.repository.UserRepository;

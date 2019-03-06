@@ -1,8 +1,6 @@
 package com.dev.olive.olivebakery.model.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -10,10 +8,10 @@ import javax.persistence.*;
  * Created by YoungMan on 2019-02-08.
  */
 
-@Getter
-@Setter
 @Entity
 @Table(name = "reservationinfo_tbl")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ReservationInfo {
 
     @Id
@@ -29,9 +27,6 @@ public class ReservationInfo {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bread_id")
     private Bread bread;
-
-    public ReservationInfo() {
-    }
 
     @Builder
     public ReservationInfo(Integer breadCount, Reservation reservation, Bread bread) {

@@ -1,4 +1,4 @@
-package com.dev.olive.olivebakery.service.reservation;
+package com.dev.olive.olivebakery.service;
 
 import com.dev.olive.olivebakery.model.dto.ReservationSaveDto;
 import com.dev.olive.olivebakery.model.entity.Bread;
@@ -6,9 +6,6 @@ import com.dev.olive.olivebakery.model.entity.Reservation;
 import com.dev.olive.olivebakery.model.entity.ReservationInfo;
 import com.dev.olive.olivebakery.model.entity.User;
 import com.dev.olive.olivebakery.repository.ReservationInfoRepository;
-import com.dev.olive.olivebakery.service.bread.BreadFindService;
-import com.dev.olive.olivebakery.service.bread.BreadService;
-import com.dev.olive.olivebakery.service.user.UserFindService;
 import org.springframework.stereotype.Service;
 
 

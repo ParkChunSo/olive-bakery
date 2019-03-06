@@ -1,8 +1,7 @@
 package com.dev.olive.olivebakery.model.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import com.dev.olive.olivebakery.model.dto.BoardDto;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -15,11 +14,11 @@ import java.util.List;
  * Created by YoungMan on 2019-02-11.
  */
 
-@Getter
-@Setter
 @Entity
 @Table(name = "board_tbl")
+@Getter
 @EntityListeners(AuditingEntityListener.class)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Board {
 
     @Id
@@ -47,15 +46,17 @@ public class Board {
     @JoinColumn(name = "board_id")
     private List<Comment> comments;
 
-    public Board() {
-    }
-
     @Builder
     public Board(String title, String context, String boardType, User user) {
         this.title = title;
         this.context = context;
         this.boardType = boardType;
         this.user = user;
+    }
+
+    public void updateBoard(BoardDto.Update updateDto) {
+        this.context = updateDto.getContext();
+        this.title = updateDto.getTitle();
     }
 
 

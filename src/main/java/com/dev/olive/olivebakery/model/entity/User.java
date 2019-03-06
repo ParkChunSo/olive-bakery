@@ -1,6 +1,8 @@
 package com.dev.olive.olivebakery.model.entity;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,10 +12,10 @@ import java.util.List;
  * Created by YoungMan on 2019-02-08.
  */
 
-@Getter
-@Setter
 @Entity
 @Table(name = "user_tbl")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
     @Id

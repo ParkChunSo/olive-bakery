@@ -22,7 +22,6 @@ public class ReservationSaveDto {
     private LinkedHashMap<String, Integer> breadInfo;//빵이름, 개수
     //    private List<String> breadNames;
 
-
     public ReservationSaveDto() {
     }
 

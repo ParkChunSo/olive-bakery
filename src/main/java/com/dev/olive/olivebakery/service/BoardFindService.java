@@ -1,10 +1,9 @@
-package com.dev.olive.olivebakery.service.Board;
+package com.dev.olive.olivebakery.service;
 
 import com.dev.olive.olivebakery.exception.UserDefineException;
 import com.dev.olive.olivebakery.model.entity.Board;
 import com.dev.olive.olivebakery.model.entity.User;
 import com.dev.olive.olivebakery.repository.BoardRepository;
-import com.dev.olive.olivebakery.service.user.UserFindService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -6,11 +6,11 @@ import com.dev.olive.olivebakery.model.enums.BoardType;
 import com.dev.olive.olivebakery.model.dto.BoardSaveDto;
 import com.dev.olive.olivebakery.model.dto.BoardUpdateDto;
 import com.dev.olive.olivebakery.model.entity.Board;
-import com.dev.olive.olivebakery.service.Board.BoardCrudService;
-import com.dev.olive.olivebakery.service.Board.BoardFindService;
-import com.dev.olive.olivebakery.service.bread.BreadFindService;
-import com.dev.olive.olivebakery.service.reservation.ReservationService;
-import com.dev.olive.olivebakery.service.user.UserCrudService;
+import com.dev.olive.olivebakery.service.BoardCrudService;
+import com.dev.olive.olivebakery.service.BoardFindService;
+import com.dev.olive.olivebakery.service.BreadFindService;
+import com.dev.olive.olivebakery.service.ReservationService;
+import com.dev.olive.olivebakery.service.UserCrudService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -132,11 +132,8 @@ public class BoardCurdServiceTest {
         maps.put("소보로",1);
         maps.put("단팥빵",5);
 
-        List<String> breads = new ArrayList<String>(maps.keySet());
-
         //가져갈 시간
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-
 
         ReservationSaveDto reservationSaveDto = ReservationSaveDto.builder()
                 .bringTime(timestamp)

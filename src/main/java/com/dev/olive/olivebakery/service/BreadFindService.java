@@ -1,4 +1,4 @@
-package com.dev.olive.olivebakery.service.bread;
+package com.dev.olive.olivebakery.service;
 
 import com.dev.olive.olivebakery.exception.UserDefineException;
 import com.dev.olive.olivebakery.model.entity.Bread;

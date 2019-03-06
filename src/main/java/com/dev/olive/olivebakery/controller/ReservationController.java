@@ -1,7 +1,7 @@
 package com.dev.olive.olivebakery.controller;
 
 import com.dev.olive.olivebakery.model.dto.ReservationSaveDto;
-import com.dev.olive.olivebakery.service.reservation.ReservationService;
+import com.dev.olive.olivebakery.service.ReservationService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

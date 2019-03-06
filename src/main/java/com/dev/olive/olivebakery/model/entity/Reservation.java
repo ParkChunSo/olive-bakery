@@ -1,9 +1,7 @@
 package com.dev.olive.olivebakery.model.entity;
 
 import com.dev.olive.olivebakery.model.enums.ReservationType;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -15,11 +13,11 @@ import java.util.List;
  * Created by YoungMan on 2019-02-08.
  */
 
-@Getter
-@Setter
 @Entity
 @Table(name = "reservation_tbl")
 @EntityListeners(AuditingEntityListener.class)
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Reservation {
 
     @Id
@@ -41,9 +39,6 @@ public class Reservation {
 
     @OneToMany(mappedBy = "reservation")
     private List<ReservationInfo> reservationInfos;
-
-    public Reservation() {
-    }
 
     @Builder
     public Reservation(Timestamp bringTime, Integer price, User user, List<ReservationInfo> reservationInfos) {

@@ -1,12 +1,12 @@
-package com.dev.olive.olivebakery.service.Board;
+package com.dev.olive.olivebakery.service;
 
+import com.dev.olive.olivebakery.model.dto.BoardDto;
 import com.dev.olive.olivebakery.model.enums.BoardType;
 import com.dev.olive.olivebakery.model.dto.BoardSaveDto;
 import com.dev.olive.olivebakery.model.dto.BoardUpdateDto;
 import com.dev.olive.olivebakery.model.entity.Board;
 import com.dev.olive.olivebakery.model.entity.User;
 import com.dev.olive.olivebakery.repository.BoardRepository;
-import com.dev.olive.olivebakery.service.user.UserFindService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -29,8 +29,8 @@ public class BoardCrudService {
         this.userFindService = userFindService;
     }
 
-    public void saveBoard(BoardSaveDto boardSaveDto) {
-        Board board = convertSaveDtoToEntity(boardSaveDto);
+    public void saveBoard(BoardDto.Save saveDto) {
+        Board board = saveDto.toEntity();
         boardRepository.save(board);
     }
 
@@ -39,8 +39,9 @@ public class BoardCrudService {
         return boardRepository.findAll(pageRequest, boardType.toString());
     }
 
-    public void updateBoard(BoardUpdateDto boardUpdateDto) {
-        Board board = convertUpdateDtoToEntity(boardUpdateDto);
+    public void updateBoard(BoardDto.Update updateDto) {
+        Board board = boardFindService.findById(updateDto.getBoardId());
+        board.updateBoard(updateDto);
         boardRepository.save(board);
     }
 
@@ -49,7 +50,7 @@ public class BoardCrudService {
         boardRepository.delete(board);
     }
 
-    private Board convertSaveDtoToEntity(BoardSaveDto boardSaveDto) {
+    /*private Board convertSaveDtoToEntity(BoardSaveDto boardSaveDto) {
         User user = userFindService.findById(boardSaveDto.getUserId());
 
         return Board.builder()
@@ -66,7 +67,7 @@ public class BoardCrudService {
         board.setContext(boardUpdateDto.getContext());
 
         return board;
-    }
+    }*/
 
 
 }
