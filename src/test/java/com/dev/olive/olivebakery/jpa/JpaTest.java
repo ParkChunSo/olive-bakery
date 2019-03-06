@@ -1,4 +1,4 @@
-package com.dev.olive.olivebakery.Board;
+package com.dev.olive.olivebakery.jpa;
 
 import com.dev.olive.olivebakery.model.dto.BoardDto;
 import com.dev.olive.olivebakery.model.dto.ReservationDto;
@@ -25,7 +25,7 @@ import java.util.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class BoardCurdServiceTest {
+public class JpaTest {
 
     @Autowired
     BoardService boardService;
@@ -137,11 +137,8 @@ public class BoardCurdServiceTest {
 
         LinkedHashMap<String, Integer> maps = new LinkedHashMap<>();
         maps.put("소보로",1);//소보로 1개구매
-        maps.put("단팥빵",5);//단팥빵
+        maps.put("단팥빵",5);//단팥빵 5개구매
 
-        /*
-         * test 시 가져갈 시간 임의생성
-         */
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
         ReservationDto.Save saveDto = ReservationDto.Save.builder()
@@ -152,4 +149,5 @@ public class BoardCurdServiceTest {
 
         reservationService.saveReservation(saveDto);
     }
+
 }

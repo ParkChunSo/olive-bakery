@@ -52,11 +52,11 @@ public class Reservation {
         this.reservationInfos = reservationInfos;
     }
 
+    /*
+     * 요청 -> 수락
+     * 수락 -> 완료
+     */
     public void updateReservationType() {
-        if(reservationType == ReservationType.REQUEST) {
-            reservationType = ReservationType.ACCEPT;
-        } else if (reservationType == ReservationType.ACCEPT) {
-            reservationType = ReservationType.COMPLETE;
-        }
+        reservationType = reservationType.equals(ReservationType.REQUEST) ? ReservationType.ACCEPT : ReservationType.COMPLETE;
     }
 }

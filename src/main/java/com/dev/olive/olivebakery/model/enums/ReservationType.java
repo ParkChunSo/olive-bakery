@@ -1,5 +1,6 @@
 package com.dev.olive.olivebakery.model.enums;
 
+import com.dev.olive.olivebakery.exception.UserDefineException;
 import lombok.Getter;
 
 /**
@@ -9,7 +10,7 @@ import lombok.Getter;
 
 @Getter
 public enum ReservationType {
-    REQUEST("요청"), ACCEPT("수락"), COMPLETE("완료");
+    ACCEPT("수락"), COMPLETE("완료"), REQUEST("요청");
 
     private String reservationExplain;
 
@@ -23,10 +24,16 @@ public enum ReservationType {
     public static ReservationType convertStrToEnum(String reservation) {
         if (reservation.equals(REQUEST.getReservationExplain())) {
             return REQUEST;
-        } else if (reservation.equals(ACCEPT.getReservationExplain())) {
+        }
+
+        if (reservation.equals(ACCEPT.getReservationExplain())) {
             return ACCEPT;
-        } else {
+        }
+
+        if (reservation.equals(COMPLETE.getReservationExplain())) {
             return COMPLETE;
         }
+
+        throw new UserDefineException("해당 Enum 타입이 없습니다.");
     }
 }

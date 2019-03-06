@@ -1,5 +1,6 @@
 package com.dev.olive.olivebakery.model.enums;
 
+import com.dev.olive.olivebakery.exception.UserDefineException;
 import lombok.Getter;
 
 /**
@@ -22,9 +23,13 @@ public enum BoardType {
     public static BoardType convertStrToEnum(String board) {
         if (board.equals(NOTICE.getBoardExplain())) {
             return NOTICE;
-        } else {
+        }
+
+        if (board.equals(QUESTION.getBoardExplain())) {
             return QUESTION;
         }
+
+        throw new UserDefineException("해당 Enum 타입이 없습니다.");
     }
 
 }
