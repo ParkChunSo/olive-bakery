@@ -1,16 +1,14 @@
 package com.dev.olive.olivebakery.Board;
 
-import com.dev.olive.olivebakery.model.dto.ReservationSaveDto;
+import com.dev.olive.olivebakery.model.dto.BoardDto;
+import com.dev.olive.olivebakery.model.dto.ReservationDto;
+import com.dev.olive.olivebakery.model.entity.Board;
 import com.dev.olive.olivebakery.model.entity.Bread;
 import com.dev.olive.olivebakery.model.enums.BoardType;
-import com.dev.olive.olivebakery.model.dto.BoardSaveDto;
-import com.dev.olive.olivebakery.model.dto.BoardUpdateDto;
-import com.dev.olive.olivebakery.model.entity.Board;
-import com.dev.olive.olivebakery.service.BoardCrudService;
-import com.dev.olive.olivebakery.service.BoardFindService;
-import com.dev.olive.olivebakery.service.BreadFindService;
+import com.dev.olive.olivebakery.service.BoardService;
+import com.dev.olive.olivebakery.service.BreadService;
 import com.dev.olive.olivebakery.service.ReservationService;
-import com.dev.olive.olivebakery.service.UserCrudService;
+import com.dev.olive.olivebakery.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,69 +28,80 @@ import java.util.*;
 public class BoardCurdServiceTest {
 
     @Autowired
-    BoardCrudService boardCrudService;
+    BoardService boardService;
 
     @Autowired
-    BoardFindService boardFindService;
+    UserService userService;
 
     @Autowired
-    UserCrudService userCrudService;
-
-    @Autowired
-    BreadFindService breadFindService;
+    BreadService breadService;
 
     @Autowired
     ReservationService reservationService;
 
-
+    /*
+     * 완료
+     */
     @Test
     public void saveBoard() {
-        BoardSaveDto boardSaveDto = BoardSaveDto.builder()
+        BoardDto.Save saveDto = BoardDto.Save.builder()
                 .userId("testid")
-                .context("test1")
-                .title("test2")
-                .boardType(BoardType.QUESTION)
+                .context("test_context")
+                .title("test_title")
+                .boardType("공지")
                 .build();
 
-        boardCrudService.saveBoard(boardSaveDto);
+        boardService.saveBoard(saveDto);
     }
 
+    /*
+     * 완료
+     */
     @Test
     public void updateBoard() {
-        BoardUpdateDto boardUpdateDto = BoardUpdateDto.builder()
-                .boardId(5L)
-                .context("update")
-                .title("update2")
+        BoardDto.Update updateDto = BoardDto.Update.builder()
+                .boardId(1L)
+                .context("update_context")
+                .title("update_title")
                 .build();
 
-        boardCrudService.updateBoard(boardUpdateDto);
+        boardService.updateBoard(updateDto);
     }
 
+    /*
+     * 완료
+     */
     @Test
     public void deleteBoard() {
-        boardCrudService.deleteBoard(26L);
+        boardService.deleteBoard(1L);
     }
 
+    /*
+     * 완료
+     */
     @Test
     public void getBoards() {
-        Page<Board> noticeBoards = boardCrudService.getBoards(BoardType.NOTICE, 1);
+        Page<Board> noticeBoards = boardService.getBoards(BoardType.NOTICE, 1);
         noticeBoards.forEach(s -> System.out.println(s.getBoardId()));
 
-        System.out.println("====================================");
+        System.out.println("======================----------==============");
 
-        Page<Board> questionBoards = boardCrudService.getBoards(BoardType.QUESTION, 2);
+        Page<Board> questionBoards = boardService.getBoards(BoardType.QUESTION, 2);
         questionBoards.forEach(s -> System.out.println(s.getBoardId()));
     }
 
+    /*
+     * 완료
+     */
     @Test
     public void boardFind() {
-        List<Board> boards = boardFindService.findByUser("testid");
+        List<Board> boards = boardService.findByUser("testid");
         System.out.println(boards.size());
     }
 
     @Test
     public void deleteUser() {
-        userCrudService.deleteUser("testid2");
+        userService.deleteUser("testid");
     }
 
     @Test
@@ -101,7 +110,7 @@ public class BoardCurdServiceTest {
         breads.add("소보로");
         breads.add("단팥빵");
 
-        List<Bread> breadss = breadFindService.findsByNames(breads);
+        List<Bread> breadss = breadService.findsByNames(breads);
         System.out.println(breadss.get(0).getName());
         System.out.println(breadss.get(0).getDescription());
         System.out.println(breadss.get(1).getName());
@@ -118,29 +127,29 @@ public class BoardCurdServiceTest {
 
         System.out.println(list.get(0) + "++++" + list.get(1));
         System.out.println(counts.get(0).toString() + "++++" + counts.get(1).toString());
-
     }
 
+    /*
+     * 예약
+     */
     @Test
-    public void saveDtoToEntity() {
-        //빵정보
-        /*List<String> breads = new ArrayList<>();
-        breads.add("소보로");
-        breads.add("단팥빵");*/
+    public void saveReservation() {
 
         LinkedHashMap<String, Integer> maps = new LinkedHashMap<>();
-        maps.put("소보로",1);
-        maps.put("단팥빵",5);
+        maps.put("소보로",1);//소보로 1개구매
+        maps.put("단팥빵",5);//단팥빵
 
-        //가져갈 시간
+        /*
+         * test 시 가져갈 시간 임의생성
+         */
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
-        ReservationSaveDto reservationSaveDto = ReservationSaveDto.builder()
+        ReservationDto.Save saveDto = ReservationDto.Save.builder()
                 .bringTime(timestamp)
                 .userId("testid")
                 .breadInfo(maps)
                 .build();
 
-        reservationService.saveReservation(reservationSaveDto);
+        reservationService.saveReservation(saveDto);
     }
 }

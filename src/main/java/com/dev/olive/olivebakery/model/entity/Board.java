@@ -1,6 +1,7 @@
 package com.dev.olive.olivebakery.model.entity;
 
 import com.dev.olive.olivebakery.model.dto.BoardDto;
+import com.dev.olive.olivebakery.model.enums.BoardType;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -8,6 +9,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,7 +38,8 @@ public class Board {
     @Lob
     private String context;
 
-    private String boardType;
+    @Enumerated(EnumType.STRING)
+    private BoardType boardType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -44,10 +47,10 @@ public class Board {
 
     @OneToMany//단방향
     @JoinColumn(name = "board_id")
-    private List<Comment> comments;
+    private List<Comment> comments = new ArrayList<>();
 
     @Builder
-    public Board(String title, String context, String boardType, User user) {
+    public Board(String title, String context, BoardType boardType, User user) {
         this.title = title;
         this.context = context;
         this.boardType = boardType;

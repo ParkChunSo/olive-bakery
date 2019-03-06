@@ -1,7 +1,9 @@
 package com.dev.olive.olivebakery.model.dto;
 
 import com.dev.olive.olivebakery.model.entity.Board;
+import com.dev.olive.olivebakery.model.entity.User;
 import com.dev.olive.olivebakery.model.enums.BoardType;
+import com.dev.olive.olivebakery.service.UserService;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,22 +21,23 @@ public class BoardDto {
         private String context;
         private String title;
         private String userId;
-        private BoardType boardType;
+        private String boardType;
 
         @Builder
-        public Save(String context, String title, String userId, BoardType boardType) {
+        public Save(String context, String title, String userId, String boardType) {
             this.context = context;
             this.title = title;
             this.userId = userId;
             this.boardType = boardType;
         }
 
-        public Board toEntity() {
+        public Board toEntity(User user) {
             return Board.builder()
                     .context(context)
                     .title(title)
-                    .user()
-                    .boardType()
+                    .user(user)
+                    .boardType(BoardType.convertStrToEnum(boardType))
+                    .build();
         }
     }
 

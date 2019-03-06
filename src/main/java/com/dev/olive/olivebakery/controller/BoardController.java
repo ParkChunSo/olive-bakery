@@ -3,7 +3,7 @@ package com.dev.olive.olivebakery.controller;
 import com.dev.olive.olivebakery.model.dto.BoardDto;
 import com.dev.olive.olivebakery.model.entity.Board;
 import com.dev.olive.olivebakery.model.enums.BoardType;
-import com.dev.olive.olivebakery.service.BoardCrudService;
+import com.dev.olive.olivebakery.service.BoardService;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,35 +15,31 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/olive/board")
 public class BoardController {
 
-    private BoardCrudService boardCrudService;
+    private BoardService boardService;
 
-    public BoardController(BoardCrudService boardCrudService) {
-        this.boardCrudService = boardCrudService;
+    public BoardController(BoardService boardService) {
+        this.boardService = boardService;
     }
 
     @PostMapping
     public void saveBoard(@RequestBody BoardDto.Save saveDto) {
-        boardCrudService.saveBoard(saveDto);
+        boardService.saveBoard(saveDto);
     }
 
     @GetMapping("/{type}/page/{num}")
     public Page<Board> getBoards(@PathVariable("type") BoardType boardType, @PathVariable("num") int pageNum) {
-        return boardCrudService.getBoards(boardType, pageNum);
+        return boardService.getBoards(boardType, pageNum);
     }
 
     @PutMapping
     public void updateBoard(@RequestBody BoardDto.Update updateDto) {
-        boardCrudService.updateBoard(updateDto);
+        boardService.updateBoard(updateDto);
     }
 
     @DeleteMapping("/{num}")
     public void deleteBoard(@PathVariable("num") Long boardId) {
-        boardCrudService.deleteBoard(boardId);
+        boardService.deleteBoard(boardId);
     }
-
-
-
-
 
 
 

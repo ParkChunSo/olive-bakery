@@ -7,6 +7,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,21 +32,31 @@ public class Reservation {
 
     private Integer price;
 
-    private String reservationType = ReservationType.REQUEST.toString();
+    @Enumerated(EnumType.STRING)
+    private ReservationType reservationType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(mappedBy = "reservation")
-    private List<ReservationInfo> reservationInfos;
+    private List<ReservationInfo> reservationInfos = new ArrayList<>();
 
     @Builder
-    public Reservation(Timestamp bringTime, Integer price, User user, List<ReservationInfo> reservationInfos) {
+    public Reservation(Timestamp reservationTime, Timestamp bringTime, Integer price, User user, List<ReservationInfo> reservationInfos) {
+        this.reservationTime = reservationTime;
         this.bringTime = bringTime;
         this.price = price;
+        this.reservationType = ReservationType.REQUEST;
         this.user = user;
         this.reservationInfos = reservationInfos;
-        this.reservationType = ReservationType.REQUEST.toString();
+    }
+
+    public void updateReservationType() {
+        if(reservationType == ReservationType.REQUEST) {
+            reservationType = ReservationType.ACCEPT;
+        } else if (reservationType == ReservationType.ACCEPT) {
+            reservationType = ReservationType.COMPLETE;
+        }
     }
 }

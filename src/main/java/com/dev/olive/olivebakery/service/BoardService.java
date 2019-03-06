@@ -9,6 +9,7 @@ import com.dev.olive.olivebakery.repository.BoardRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -16,14 +17,15 @@ import java.util.List;
  * Created by YoungMan on 2019-03-05.
  */
 
+@Service
 public class BoardService {
 
     private final BoardRepository boardRepository;
-    private UserFindService userFindService;
+    private UserService userService;
 
-    public BoardService(BoardRepository boardRepository, UserFindService userFindService) {
+    public BoardService(BoardRepository boardRepository, UserService userService) {
         this.boardRepository = boardRepository;
-        this.userFindService = userFindService;
+        this.userService = userService;
     }
 
     public Board findById(Long boardId) {
@@ -32,18 +34,23 @@ public class BoardService {
     }
 
     public List<Board> findByUser(String userId) {
-        User user = userFindService.findById(userId);
+        User user = userService.findById(userId);
         return boardRepository.findByUser(user)
                 .orElseThrow(() -> new UserDefineException("해당 유저의 게시글이 없습니다."));
     }
 
+    /*
+     * 공지 or 질문 게시판 타입에 맞게 페이징
+     */
     public Page<Board> getBoards(BoardType boardType, int pageNum) {
         PageRequest pageRequest = new PageRequest(pageNum - 1, 10, Sort.Direction.DESC, "boardId");
-        return boardRepository.findAll(pageRequest, boardType.toString());
+        return boardRepository.findAll(pageRequest, boardType);
     }
 
     public void saveBoard(BoardDto.Save saveDto) {
-        Board board = saveDto.toEntity();
+        User user = userService.findById(saveDto.getUserId());
+
+        Board board = saveDto.toEntity(user);
         boardRepository.save(board);
     }
 
@@ -57,4 +64,7 @@ public class BoardService {
         Board board = findById(boardId);
         boardRepository.delete(board);
     }
+
+
+
 }

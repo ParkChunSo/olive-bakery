@@ -1,13 +1,14 @@
 package com.dev.olive.olivebakery.service;
 
-import com.dev.olive.olivebakery.model.dto.ReservationSaveDto;
+import com.dev.olive.olivebakery.exception.UserDefineException;
+import com.dev.olive.olivebakery.model.dto.ReservationDto;
 import com.dev.olive.olivebakery.model.entity.Bread;
 import com.dev.olive.olivebakery.model.entity.Reservation;
 import com.dev.olive.olivebakery.model.entity.ReservationInfo;
 import com.dev.olive.olivebakery.model.entity.User;
 import com.dev.olive.olivebakery.repository.ReservationInfoRepository;
+import com.dev.olive.olivebakery.repository.ReservationRepository;
 import org.springframework.stereotype.Service;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,44 +19,52 @@ import java.util.List;
 
 @Service
 public class ReservationService {
+    private final ReservationRepository reservationRepository;
     private final ReservationInfoRepository reservationInfoRepository;
-    private UserFindService userFindService;
-    private BreadFindService breadFindService;
+    private UserService userService;
     private BreadService breadService;
 
-    public ReservationService(ReservationInfoRepository reservationInfoRepository, UserFindService userFindService, BreadFindService breadFindService, BreadService breadService) {
+    public ReservationService(ReservationRepository reservationRepository, ReservationInfoRepository reservationInfoRepository, UserService userService, BreadService breadService) {
+        this.reservationRepository = reservationRepository;
         this.reservationInfoRepository = reservationInfoRepository;
-        this.userFindService = userFindService;
-        this.breadFindService = breadFindService;
+        this.userService = userService;
         this.breadService = breadService;
     }
 
-    public void saveReservation(ReservationSaveDto reservationSaveDto) {
-        reservationInfoRepository.saveAll(convertSaveDtoToEntity(reservationSaveDto));
+    public Reservation findById(Long reservationId) {
+        return reservationRepository.findById(reservationId).orElseThrow(() -> new UserDefineException("해당 예약내역이 없습니다."));
     }
 
-    private List<ReservationInfo> convertSaveDtoToEntity(ReservationSaveDto reservationSaveDto) {
+    public void saveReservation(ReservationDto.Save saveDto) {
+        reservationInfoRepository.saveAll(convertSaveDtoToEntity(saveDto));
+    }
+
+    private List<ReservationInfo> convertSaveDtoToEntity(ReservationDto.Save saveDto) {
         List<ReservationInfo> reservationInfos = new ArrayList<>();
-        User user = userFindService.findById(reservationSaveDto.getUserId());
-        List<Bread> breads = breadFindService.findsByNames(reservationSaveDto.getBreadNames());
-        int finalPrice = breadService.getFinalPrice(reservationSaveDto.getBreadInfo());
-        //        int finalPrice = breadService.getFinalPrice(breads);
+        User user = userService.findById(saveDto.getUserId());
+        List<Bread> breads = breadService.findsByNames(saveDto.getBreadNames());
+        int finalPrice = breadService.getFinalPrice(saveDto.getBreadInfo());
 
         Reservation reservation = Reservation.builder()
-                .bringTime(reservationSaveDto.getBringTime())
+                .bringTime(saveDto.getBringTime())
                 .user(user)
                 .price(finalPrice)
                 .build();
 
         for (int i = 0; i < breads.size(); i++) {
             reservationInfos.add(ReservationInfo.builder()
-                    .breadCount(reservationSaveDto.getBreadCounts().get(i))
+                    .breadCount(saveDto.getBreadCounts().get(i))
                     .bread(breads.get(i))
                     .reservation(reservation)
                     .build());
         }
 
         return reservationInfos;
+    }
+
+    public void updateReservationType(Long reservationId) {
+        Reservation reservation = findById(reservationId);
+        reservation.updateReservationType();
     }
 
 
