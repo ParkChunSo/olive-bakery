@@ -1,0 +1,18 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    open-in-view: true
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/olive_bakery?useSSL=false&serverTimezone=Asia/Seoul
+    username: root
+    password: 111111
+logging:
+  level:
+    root: info
+
+server:
+  port: 8090
