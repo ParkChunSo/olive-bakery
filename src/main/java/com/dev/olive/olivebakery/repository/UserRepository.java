@@ -6,10 +6,6 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
-/**
- * Created by YoungMan on 2019-02-09.
- */
-
 public interface UserRepository extends JpaRepository<User, String> {
 
     Optional<User> findByEmail(@Param("email") String email);
