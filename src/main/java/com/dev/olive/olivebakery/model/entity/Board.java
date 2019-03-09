@@ -62,5 +62,4 @@ public class Board {
         this.title = updateDto.getTitle();
     }
 
-
 }
