@@ -12,6 +12,8 @@ import java.util.Optional;
  */
 
 public interface BreadRepository extends JpaRepository<Bread, Long> {
+  
+  //Bread findByName(String breadName);
 
     Optional<Bread> findByName(@Param("breadName") String breadName);
 
