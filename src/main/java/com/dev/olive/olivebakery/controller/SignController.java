@@ -44,6 +44,11 @@ public class SignController {
         signService.delete(signInDto);
     }
 
+    @GetMapping("/test")
+    public String test(){
+        return "지상하이";
+    }
+
 
     /*public AuthTokenDto login(@RequestBody AuthRequestDto authRequestDto, HttpSession session){
         String username = authRequestDto.getUsername();
