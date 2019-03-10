@@ -1,12 +1,18 @@
 package com.dev.olive.olivebakery.exception;
 
 import lombok.Getter;
+import lombok.Setter;
+
+/**
+ * Created by YoungMan on 2019-02-09.
+ */
 
 @Getter
+@Setter
 public class UserDefineException extends RuntimeException {
 
-    String originalErrorMessage;
-    String errorMethod;
+    private String originalErrorMessage;
+    private String errorMethod;
 
     public UserDefineException(String message) {
         super(message);
