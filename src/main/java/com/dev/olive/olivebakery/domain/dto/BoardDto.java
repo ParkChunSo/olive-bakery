@@ -1,9 +1,8 @@
-package com.dev.olive.olivebakery.model.dto;
+package com.dev.olive.olivebakery.domain.dto;
 
-import com.dev.olive.olivebakery.model.entity.Board;
-import com.dev.olive.olivebakery.model.entity.User;
-import com.dev.olive.olivebakery.model.enums.BoardType;
-import com.dev.olive.olivebakery.service.UserService;
+import com.dev.olive.olivebakery.domain.entity.Board;
+import com.dev.olive.olivebakery.domain.entity.Member;
+import com.dev.olive.olivebakery.domain.enums.BoardType;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,11 +30,11 @@ public class BoardDto {
             this.boardType = boardType;
         }
 
-        public Board toEntity(User user) {
+        public Board toEntity(Member member) {
             return Board.builder()
                     .context(context)
                     .title(title)
-                    .user(user)
+                    .member(member)
                     .boardType(BoardType.convertStrToEnum(boardType))
                     .build();
         }

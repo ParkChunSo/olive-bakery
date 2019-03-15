@@ -1,6 +1,6 @@
 package com.dev.olive.olivebakery.repository;
 
-import com.dev.olive.olivebakery.model.entity.ReservationInfo;
+import com.dev.olive.olivebakery.domain.entity.ReservationInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

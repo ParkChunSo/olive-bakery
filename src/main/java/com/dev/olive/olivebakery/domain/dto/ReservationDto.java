@@ -1,4 +1,4 @@
-package com.dev.olive.olivebakery.model.dto;
+package com.dev.olive.olivebakery.domain.dto;
 
 import lombok.AccessLevel;
 import lombok.Builder;

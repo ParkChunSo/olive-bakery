@@ -1,7 +1,7 @@
-package com.dev.olive.olivebakery.model.entity;
+package com.dev.olive.olivebakery.domain.entity;
 
-import com.dev.olive.olivebakery.model.dto.BoardDto;
-import com.dev.olive.olivebakery.model.enums.BoardType;
+import com.dev.olive.olivebakery.domain.dto.BoardDto;
+import com.dev.olive.olivebakery.domain.enums.BoardType;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -42,19 +42,19 @@ public class Board {
     private BoardType boardType;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "email")
+    private Member member;
 
     @OneToMany//단방향
     @JoinColumn(name = "board_id")
     private List<Comment> comments = new ArrayList<>();
 
     @Builder
-    public Board(String title, String context, BoardType boardType, User user) {
+    public Board(String title, String context, BoardType boardType, Member member) {
         this.title = title;
         this.context = context;
         this.boardType = boardType;
-        this.user = user;
+        this.member = member;
     }
 
     public void updateBoard(BoardDto.Update updateDto) {

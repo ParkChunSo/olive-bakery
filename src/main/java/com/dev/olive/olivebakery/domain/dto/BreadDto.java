@@ -1,4 +1,4 @@
-package com.dev.olive.olivebakery.dto;
+package com.dev.olive.olivebakery.domain.dto;
 
 
 import lombok.Builder;
@@ -11,7 +11,7 @@ public class BreadDto {
     private int price;
     private String picturePath;
     private String description;
-    private int soldOut;
+    private boolean soldOut;
     private int star;
     private String days;
 
