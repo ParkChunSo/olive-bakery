@@ -1,14 +1,14 @@
 package com.dev.olive.olivebakery.jpa;
 
-import com.dev.olive.olivebakery.model.dto.BoardDto;
-import com.dev.olive.olivebakery.model.dto.ReservationDto;
-import com.dev.olive.olivebakery.model.entity.Board;
-import com.dev.olive.olivebakery.model.entity.Bread;
-import com.dev.olive.olivebakery.model.enums.BoardType;
+import com.dev.olive.olivebakery.domain.dto.BoardDto;
+import com.dev.olive.olivebakery.domain.dto.ReservationDto;
+import com.dev.olive.olivebakery.domain.entity.Board;
+import com.dev.olive.olivebakery.domain.entity.Bread;
+import com.dev.olive.olivebakery.domain.enums.BoardType;
 import com.dev.olive.olivebakery.service.BoardService;
 import com.dev.olive.olivebakery.service.BreadService;
 import com.dev.olive.olivebakery.service.ReservationService;
-import com.dev.olive.olivebakery.service.UserService;
+import com.dev.olive.olivebakery.service.SignService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class JpaTest {
     BoardService boardService;
 
     @Autowired
-    UserService userService;
+    SignService signService;
 
     @Autowired
     BreadService breadService;
@@ -99,10 +99,10 @@ public class JpaTest {
         System.out.println(boards.size());
     }
 
-    @Test
+    /*@Test
     public void deleteUser() {
-        userService.deleteUser("testid");
-    }
+        signService.delete("testid");
+    }*/
 
     @Test
     public void searchBreads() {

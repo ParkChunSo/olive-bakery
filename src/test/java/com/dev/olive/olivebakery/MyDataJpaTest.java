@@ -1,13 +1,9 @@
 package com.dev.olive.olivebakery;
 
-import com.dev.olive.olivebakery.entity.Bread;
-import com.dev.olive.olivebakery.entity.Days;
-import com.dev.olive.olivebakery.entity.Review;
-import com.dev.olive.olivebakery.entity.User;
+import com.dev.olive.olivebakery.domain.entity.Review;
 import com.dev.olive.olivebakery.repository.BreadRepository;
 import com.dev.olive.olivebakery.repository.DaysRepository;
 import com.dev.olive.olivebakery.repository.ReviewRepository;
-import com.dev.olive.olivebakery.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
