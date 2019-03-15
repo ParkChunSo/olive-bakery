@@ -1,4 +1,4 @@
-package com.dev.olive.olivebakery.model.enums;
+package com.dev.olive.olivebakery.domain.enums;
 
 import com.dev.olive.olivebakery.exception.UserDefineException;
 import lombok.Getter;
@@ -31,5 +31,4 @@ public enum BoardType {
 
         throw new UserDefineException("해당 Enum 타입이 없습니다.");
     }
-
 }

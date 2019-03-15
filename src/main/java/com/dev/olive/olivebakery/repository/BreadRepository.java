@@ -1,6 +1,6 @@
 package com.dev.olive.olivebakery.repository;
 
-import com.dev.olive.olivebakery.model.entity.Bread;
+import com.dev.olive.olivebakery.domain.entity.Bread;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 

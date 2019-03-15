@@ -1,4 +1,4 @@
-package com.dev.olive.olivebakery.model.entity;
+package com.dev.olive.olivebakery.domain.entity;
 
 import lombok.*;
 
@@ -31,6 +31,8 @@ public class Bread {
     private Boolean isSoldOut;
 
     private Integer star;
+
+    // TODO(추가해야할 컬럼 조사)
 
     @OneToMany(mappedBy = "bread")
     private List<Days> days = new ArrayList<>();

@@ -1,11 +1,8 @@
 package com.dev.olive.olivebakery.service;
 
+import com.dev.olive.olivebakery.domain.entity.*;
 import com.dev.olive.olivebakery.exception.UserDefineException;
-import com.dev.olive.olivebakery.model.dto.ReservationDto;
-import com.dev.olive.olivebakery.model.entity.Bread;
-import com.dev.olive.olivebakery.model.entity.Reservation;
-import com.dev.olive.olivebakery.model.entity.ReservationInfo;
-import com.dev.olive.olivebakery.model.entity.User;
+import com.dev.olive.olivebakery.domain.dto.ReservationDto;
 import com.dev.olive.olivebakery.repository.ReservationInfoRepository;
 import com.dev.olive.olivebakery.repository.ReservationRepository;
 import org.springframework.stereotype.Service;
@@ -21,13 +18,13 @@ import java.util.List;
 public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final ReservationInfoRepository reservationInfoRepository;
-    private UserService userService;
+    private SignService signService;
     private BreadService breadService;
 
-    public ReservationService(ReservationRepository reservationRepository, ReservationInfoRepository reservationInfoRepository, UserService userService, BreadService breadService) {
+    public ReservationService(ReservationRepository reservationRepository, ReservationInfoRepository reservationInfoRepository, SignService signService, BreadService breadService) {
         this.reservationRepository = reservationRepository;
         this.reservationInfoRepository = reservationInfoRepository;
-        this.userService = userService;
+        this.signService = signService;
         this.breadService = breadService;
     }
 
@@ -41,13 +38,13 @@ public class ReservationService {
 
     private List<ReservationInfo> convertSaveDtoToEntity(ReservationDto.Save saveDto) {
         List<ReservationInfo> reservationInfos = new ArrayList<>();
-        User user = userService.findById(saveDto.getUserId());
+        Member member = signService.findById(saveDto.getUserId());
         List<Bread> breads = breadService.findsByNames(saveDto.getBreadNames());
         int finalPrice = breadService.getFinalPrice(saveDto.getBreadInfo());
 
         Reservation reservation = Reservation.builder()
                 .bringTime(saveDto.getBringTime())
-                .user(user)
+                .member(member)
                 .price(finalPrice)
                 .build();
 

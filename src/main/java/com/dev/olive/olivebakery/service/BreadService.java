@@ -1,7 +1,7 @@
 package com.dev.olive.olivebakery.service;
 
 import com.dev.olive.olivebakery.exception.UserDefineException;
-import com.dev.olive.olivebakery.model.entity.Bread;
+import com.dev.olive.olivebakery.domain.entity.Bread;
 import com.dev.olive.olivebakery.repository.BreadRepository;
 import org.springframework.stereotype.Service;
 

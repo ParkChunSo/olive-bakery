@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @Log
@@ -63,9 +64,9 @@ public class SignService implements UserDetailsService {
         Member member = signupDto.toEntity();
         member.setPw(passwordEncoder.encode(member.getPw()));
         if(ROLE.equals(MemberRole.ADMIN.name()))
-            member.setRole(Set.of(MemberRole.ADMIN, MemberRole.CLIENT));
+            member.setRole(Stream.of(MemberRole.ADMIN, MemberRole.CLIENT).collect(Collectors.toSet()));
         else
-            member.setRole(Set.of(MemberRole.CLIENT));
+            member.setRole(Stream.of(MemberRole.CLIENT).collect(Collectors.toSet()));
 
         memberRepository.save(member);
 
@@ -85,5 +86,10 @@ public class SignService implements UserDetailsService {
             memberRepository.deleteById(member.getId());
         else
             throw new UserDefineException("비밀번호를 잘못 입력하셨습니다.");
+    }
+
+    public Member findById(String userId) {
+        return memberRepository.findByEmail(userId)
+                .orElseThrow(() -> new UserDefineException("해당 유저가 존재하지 않습니다."));
     }
 }
