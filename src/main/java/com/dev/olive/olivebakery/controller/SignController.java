@@ -1,11 +1,10 @@
 package com.dev.olive.olivebakery.controller;
 
-import com.dev.olive.olivebakery.domain.enums.MemberRole;
 import com.dev.olive.olivebakery.domain.dto.SignInDto;
 import com.dev.olive.olivebakery.domain.dto.SignUpDto;
+import com.dev.olive.olivebakery.domain.enums.MemberRole;
 import com.dev.olive.olivebakery.service.SignService;
-
-import org.springframework.security.authentication.AuthenticationManager;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -17,36 +16,33 @@ import org.springframework.web.bind.annotation.*;
 public class SignController {
 
     private final SignService signService;
-    private final AuthenticationManager authenticationManager;
 
-    public SignController(SignService signService, AuthenticationManager authenticationManager) {
+    public SignController(SignService signService) {
         this.signService = signService;
-        this.authenticationManager = authenticationManager;
     }
 
+    @ApiOperation("회원가입")
     @PostMapping("/signup")
     public String signUp(@RequestBody SignUpDto signupDto){
         return signService.signUp(signupDto, MemberRole.CLIENT.name());
     }
 
+    @ApiOperation("로그인")
     @PostMapping
     public String signIn(@RequestBody SignInDto signInDto){
         return signService.signIn(signInDto);
     }
 
+    @ApiOperation("회원정보 수정")
     @PutMapping
     public void update(@RequestBody SignUpDto signupDto){
         signService.update(signupDto);
     }
 
+    @ApiOperation("회원정보 삭제")
     @DeleteMapping
     public void delete(@RequestBody SignInDto signInDto){
         signService.delete(signInDto);
-    }
-
-    @GetMapping("/test")
-    public String test(){
-        return "지상하이";
     }
 
 
