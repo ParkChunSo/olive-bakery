@@ -8,7 +8,10 @@ import com.dev.olive.olivebakery.repository.ReservationRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by YoungMan on 2019-02-09.
@@ -66,4 +69,23 @@ public class ReservationService {
     }
 
 
+    public List<ReservationDto.Get> getReservationInfoByUserId(String userId) {
+        List<Reservation> reservations = reservationRepository.findByMember(userId)
+                .orElseThrow(() -> new UserDefineException("해당 아이디로 예약되어 있는 목록이 존재하지 않습니다."));
+
+        List<ReservationDto.Get> getList = new ArrayList<>();
+        reservations.forEach(reservation -> {
+            LinkedHashMap<String , Integer> tmp = new LinkedHashMap<>();
+            reservation.getReservationInfos().forEach(reservationInfo -> {
+                tmp.put(reservationInfo.getBread().getName(), reservationInfo.getBreadCount());
+            });
+            getList.add(ReservationDto.Get.builder()
+                    .userId(reservation.getMember().getEmail())
+                    .bringTime(reservation.getBringTime())
+                    .breadInfo(tmp)
+                    .build());
+        });
+
+        return getList;
+    }
 }

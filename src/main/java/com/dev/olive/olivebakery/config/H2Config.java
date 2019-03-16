@@ -1,4 +1,4 @@
-package com.dev.olive.olivebakery;
+package com.dev.olive.olivebakery.config;
 
 
 import org.h2.server.web.WebServlet;

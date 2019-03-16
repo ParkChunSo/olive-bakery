@@ -42,7 +42,7 @@ public class Reservation {
     @JoinColumn(name = "email")
     private Member member;
 
-    @OneToMany(mappedBy = "reservation")
+    @OneToMany(mappedBy = "reservation", fetch = FetchType.EAGER)
     private List<ReservationInfo> reservationInfos = new ArrayList<>();
 
     @Builder
