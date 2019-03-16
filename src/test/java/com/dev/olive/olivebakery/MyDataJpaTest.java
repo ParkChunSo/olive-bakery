@@ -1,8 +1,11 @@
 package com.dev.olive.olivebakery;
 
+import com.dev.olive.olivebakery.domain.entity.Bread;
+import com.dev.olive.olivebakery.domain.entity.Days;
 import com.dev.olive.olivebakery.domain.entity.Review;
 import com.dev.olive.olivebakery.repository.BreadRepository;
 import com.dev.olive.olivebakery.repository.DaysRepository;
+import com.dev.olive.olivebakery.repository.MemberRepository;
 import com.dev.olive.olivebakery.repository.ReviewRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +31,7 @@ public class MyDataJpaTest {
     ReviewRepository reviewRepository;
 
     @Autowired
-    UserRepository userRepository;
+    MemberRepository memberRepository;
 
     @Test
     public void getDay(){
@@ -101,7 +104,7 @@ public class MyDataJpaTest {
         reviewRepository.save(review1);
         reviewRepository.save(review2);
 
-        userRepository.save(user);
+        memberRepository.save(user);
 
         /*
         List<Days> days = daysRepository.findByDay("월");

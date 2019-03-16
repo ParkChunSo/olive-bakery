@@ -13,6 +13,7 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor  // 빌더를 쓰려면 all, no 다 있어야 함
 @NoArgsConstructor
+@Table(name = "review_tbl")
 public class Review {
 
     @Id

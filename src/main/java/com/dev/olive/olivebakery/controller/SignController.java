@@ -1,11 +1,9 @@
 package com.dev.olive.olivebakery.controller;
 
-import com.dev.olive.olivebakery.domain.enums.MemberRole;
 import com.dev.olive.olivebakery.domain.dto.SignInDto;
 import com.dev.olive.olivebakery.domain.dto.SignUpDto;
+import com.dev.olive.olivebakery.domain.enums.MemberRole;
 import com.dev.olive.olivebakery.service.SignService;
-
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -17,11 +15,9 @@ import org.springframework.web.bind.annotation.*;
 public class SignController {
 
     private final SignService signService;
-    private final AuthenticationManager authenticationManager;
 
-    public SignController(SignService signService, AuthenticationManager authenticationManager) {
+    public SignController(SignService signService) {
         this.signService = signService;
-        this.authenticationManager = authenticationManager;
     }
 
     @PostMapping("/signup")
@@ -42,11 +38,6 @@ public class SignController {
     @DeleteMapping
     public void delete(@RequestBody SignInDto signInDto){
         signService.delete(signInDto);
-    }
-
-    @GetMapping("/test")
-    public String test(){
-        return "지상하이";
     }
 
 
