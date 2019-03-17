@@ -8,7 +8,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * Created by YoungMan on 2019-02-13.
+ * TODO
+ * 1. 오늘 날짜 예약 정보만 가져오기.(state 별로 따로)
+ * 2. 예약 번호 발급
+ * 3. 예약할때 validation check
+ * 4.
  */
 
 @RestController
@@ -37,6 +41,12 @@ public class ReservationController {
     @PutMapping("/{num}")
     public void updateReservationType(@PathVariable("num") Long reservationId) {
         reservationService.updateReservationType(reservationId);
+    }
+
+    @ApiOperation("예약정보 삭제")
+    @DeleteMapping("/{num}")
+    public void deleteReservation(@PathVariable Long reservationId){
+        reservationService.deleteReservation(reservationId);
     }
 
 

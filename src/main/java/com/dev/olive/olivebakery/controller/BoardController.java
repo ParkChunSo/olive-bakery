@@ -8,7 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Created by YoungMan on 2019-02-13.
+ * TODO
+ * 1. 게시물 하나씩 가져오기.
+ * 2. 게시물
  */
 
 @RestController
