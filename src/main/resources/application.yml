@@ -7,12 +7,13 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     open-in-view: true
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/olive_bakery?useSSL=false&serverTimezone=Asia/Seoul
+    url: jdbc:mysql://127.0.0.1:3306/olive?useSSL=false&serverTimezone=Asia/Seoul
     username: root
-    password: 461352
+    password: kim111
+
 logging:
   level:
     root: info
 
 server:
-  port: 8090
+  port: 8080

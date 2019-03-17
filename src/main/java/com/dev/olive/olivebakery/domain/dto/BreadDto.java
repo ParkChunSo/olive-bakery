@@ -1,6 +1,7 @@
 package com.dev.olive.olivebakery.domain.dto;
 
 
+import com.dev.olive.olivebakery.domain.enums.DayType;
 import lombok.Builder;
 import lombok.Data;
 
@@ -8,11 +9,11 @@ import lombok.Data;
 public class BreadDto {
 
     private String name;
-    private int price;
+    private Integer price;
     private String picturePath;
     private String description;
-    private boolean soldOut;
-    private int star;
-    private String days;
+    private Boolean soldOut;
+    private Integer star;
+    private DayType days;
 
 }

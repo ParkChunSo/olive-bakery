@@ -1,9 +1,7 @@
 package com.dev.olive.olivebakery.domain.entity;
 
 import com.dev.olive.olivebakery.domain.enums.DayType;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -15,6 +13,8 @@ import javax.persistence.*;
 @Table(name = "days_tbl")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
+@AllArgsConstructor
 public class Days {
 
     @Id

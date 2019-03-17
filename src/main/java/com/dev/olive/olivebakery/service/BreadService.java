@@ -1,8 +1,16 @@
 package com.dev.olive.olivebakery.service;
 
+import com.dev.olive.olivebakery.domain.dto.BreadDto;
+import com.dev.olive.olivebakery.domain.dto.ReviewDto;
+import com.dev.olive.olivebakery.domain.entity.Review;
+import com.dev.olive.olivebakery.domain.enums.DayType;
 import com.dev.olive.olivebakery.exception.UserDefineException;
 import com.dev.olive.olivebakery.domain.entity.Bread;
 import com.dev.olive.olivebakery.repository.BreadRepository;
+import com.dev.olive.olivebakery.repository.DaysRepository;
+import com.dev.olive.olivebakery.repository.ReviewRepository;
+import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -12,17 +20,32 @@ import java.util.*;
  */
 
 @Service
+@Log4j2
 public class BreadService {
 
     private final BreadRepository breadRepository;
+    private final ReviewRepository reviewRepository;
+    private final DaysRepository daysRepository;
 
-    public BreadService(BreadRepository breadRepository) {
+    public BreadService(BreadRepository breadRepository, ReviewRepository reviewRepository, DaysRepository daysRepository) {
         this.breadRepository = breadRepository;
+        this.reviewRepository = reviewRepository;
+        this.daysRepository =daysRepository;
     }
 
-    public Bread findByName(String breadName) {
-        return breadRepository.findByName(breadName)
+    public BreadDto findByName(String breadName) {
+        Bread bread =  breadRepository.findByName(breadName)
                 .orElseThrow(() -> new UserDefineException("해당 이름의 빵이 없습니다."));
+
+        BreadDto breadDto = BreadDto.builder()
+                .name(bread.getName())
+                .description(bread.getDescription())
+                .picturePath(bread.getPicturePath())
+                .price(bread.getPrice())
+                .soldOut(bread.getIsSoldOut())
+                .star(bread.getStar()).build();
+
+        return breadDto;
     }
 
     public List<Bread> findsByNames(List<String> breadNames) {
@@ -45,4 +68,48 @@ public class BreadService {
     /*public int getFinalPrice(List<Bread> breads) {
         return breads.stream().mapToInt(bread -> Math.toIntExact(bread.getPrice())).sum();
     }*/
+
+    public List<BreadDto> getBreadByDay(String day){
+
+        log.info("=======" +day);
+        List<Bread> breads = daysRepository.findBread(DayType.valueOf(day.toUpperCase()));
+        log.info("==========getBreadByDay size : " + breads.size());
+        List<BreadDto> breadDtos = convertBreadToBreadDto(breads);
+        log.info("==========breadDtos size : " + breadDtos.size());
+        return breadDtos;
+    }
+
+    public List<ReviewDto> getReview(String breadName){
+        Bread bread = breadRepository.findByName(breadName).orElseThrow(() -> new UserDefineException("해당 빵은 없습니다."));
+
+        List<Review> reviews = reviewRepository.findByBread(bread);
+
+        List<ReviewDto> reviewDtos = new ArrayList<ReviewDto>();
+
+        for (Review review : reviews){
+            ReviewDto reviewDto = ReviewDto.builder()
+                    .userName(review.getMember().getName())
+                    .content(review.getContent())
+                    .date(review.getDate()).build();
+
+            reviewDtos.add(reviewDto);
+        }
+
+        return reviewDtos;
+    }
+
+    public List<BreadDto> convertBreadToBreadDto(List<Bread> breads){
+        List<BreadDto> breadDtos = new ArrayList<>();
+        for (Bread bread : breads){
+            BreadDto breadDto = BreadDto.builder()
+                    .name(bread.getName())
+                    .description(bread.getDescription())
+                    .picturePath(bread.getPicturePath())
+                    .price(bread.getPrice())
+                    .soldOut(bread.getIsSoldOut())
+                    .star(bread.getStar()).build();
+            breadDtos.add(breadDto);
+        }
+        return breadDtos;
+    }
 }
