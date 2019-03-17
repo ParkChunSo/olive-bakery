@@ -11,6 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * TODO
+ * 1. 빵 하나씩 가져오기
+ * 2. 빵 저장
+ * 3. 빵 정보 추가.
+ * 4. 리스트로 보여줄 때는 description이랑 가격만.
+ * 5.
+ */
 @RestController
 @RequestMapping(value = "/olive")
 @Log4j2
