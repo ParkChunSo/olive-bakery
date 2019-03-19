@@ -2,6 +2,7 @@ package com.dev.olive.olivebakery.service;
 
 import com.dev.olive.olivebakery.domain.dto.BreadDto;
 import com.dev.olive.olivebakery.domain.dto.ReviewDto;
+import com.dev.olive.olivebakery.domain.entity.Days;
 import com.dev.olive.olivebakery.domain.entity.Review;
 import com.dev.olive.olivebakery.domain.enums.DayType;
 import com.dev.olive.olivebakery.exception.UserDefineException;
@@ -111,5 +112,32 @@ public class BreadService {
             breadDtos.add(breadDto);
         }
         return breadDtos;
+    }
+
+    public void saveBread(BreadDto breadDto){
+        Bread bread = Bread.builder()
+                .name(breadDto.getName())
+                .price(breadDto.getPrice())
+                .picturePath(breadDto.getPicturePath())
+                .description(breadDto.getDescription())
+                .build();
+
+        List<Days> daysList = saveDays(bread, breadDto.getDays());
+
+        breadRepository.save(bread);
+        daysRepository.saveAll(daysList);
+    }
+
+    public List<Days> saveDays(Bread bread, List<DayType> dayTypes){
+        List<Days> daysList = new ArrayList<>();
+
+        for(DayType dayType : dayTypes){
+            Days days = Days.builder()
+                    .bread(bread)
+                    .day(dayType).build();
+            daysList.add(days);
+        }
+
+        return daysList;
     }
 }

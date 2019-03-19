@@ -5,6 +5,8 @@ import com.dev.olive.olivebakery.domain.enums.DayType;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 @Data @Builder
 public class BreadDto {
 
@@ -14,6 +16,7 @@ public class BreadDto {
     private String description;
     private Boolean soldOut;
     private Integer star;
-    private DayType days;
+    private DayType day;
+    private List<DayType> days;
 
 }

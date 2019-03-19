@@ -6,10 +6,7 @@ import com.dev.olive.olivebakery.service.BreadService;
 import com.dev.olive.olivebakery.service.ShoppingService;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,6 +36,15 @@ public class BreadController {
     public BreadDto getBreadByName(@PathVariable String name){
         return breadService.findByName(name);
     }
+
+    @PostMapping()
+    public void saveBread(@RequestBody BreadDto breadDto){
+
+
+
+    }
+
+
 
     @GetMapping()
     public String test(){
