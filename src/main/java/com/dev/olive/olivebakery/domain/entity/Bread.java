@@ -26,11 +26,20 @@ public class Bread {
 
     private String picturePath;
 
+    //상세정보가 아닌 간단한 소개(리스트에서 보내줄 것)
     private String description;
+
+    //빵을 클릭했을 때 선택한 빵의 상세 소개
+    private String detailDescription;
 
     private Boolean isSoldOut;
 
     private Integer star;
+
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(joinColumns = @JoinColumn(name = "bread_id"),
+                inverseJoinColumns = @JoinColumn(name = "ingredients_id"))
+    private List<Ingredients> ingredients = new ArrayList<>();
 
     // TODO(추가해야할 컬럼 조사)
 
