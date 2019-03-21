@@ -114,7 +114,7 @@ public class BreadService {
         return breadDtos;
     }
 
-    public void saveBread(BreadDto breadDto){
+    public String saveBread(BreadDto breadDto){
         Bread bread = Bread.builder()
                 .name(breadDto.getName())
                 .price(breadDto.getPrice())
@@ -124,8 +124,12 @@ public class BreadService {
 
         List<Days> daysList = saveDays(bread, breadDto.getDays());
 
+
         breadRepository.save(bread);
         daysRepository.saveAll(daysList);
+
+        return "success";
+
     }
 
     public List<Days> saveDays(Bread bread, List<DayType> dayTypes){

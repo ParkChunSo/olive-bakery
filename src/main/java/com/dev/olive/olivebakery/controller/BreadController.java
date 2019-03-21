@@ -38,11 +38,11 @@ public class BreadController {
     }
 
     @PostMapping()
-    public void saveBread(@RequestBody BreadDto breadDto){
-
-
-
+    public String saveBread(@RequestBody BreadDto breadDto){
+        return breadService.saveBread(breadDto);
     }
+
+
 
 
 

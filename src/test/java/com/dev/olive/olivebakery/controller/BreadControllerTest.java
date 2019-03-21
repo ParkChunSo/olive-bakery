@@ -152,4 +152,10 @@ public class BreadControllerTest {
 //        assertThat(daysRepository.findBread(DayType.MON).size()).isEqualTo(2);
         //daysRepository.findBread(DayType.valueOf("MON"));
     }
+
+    @Test
+    public void saveBread() throws Exception{
+
+
+    }
 }
