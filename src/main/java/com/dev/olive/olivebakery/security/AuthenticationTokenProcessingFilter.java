@@ -55,4 +55,5 @@ public class AuthenticationTokenProcessingFilter extends GenericFilterBean {
         String authToken = httpRequest.getHeader("X-Auth-Token");
         return authToken;
     }
+
 }

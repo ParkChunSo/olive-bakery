@@ -1,4 +1,4 @@
-package com.dev.olive.olivebakery.model.dto;
+package com.dev.olive.olivebakery.domain.dto;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -16,6 +16,28 @@ import java.util.List;
  */
 
 public class ReservationDto {
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class Get{
+        private Timestamp bringTime;
+        private String userId;
+        private LinkedHashMap<String, Integer> breadInfo;
+        @Builder
+        public Get(Timestamp bringTime, String userId, LinkedHashMap<String, Integer> breadInfo) {
+            this.bringTime = bringTime;
+            this.userId = userId;
+            this.breadInfo = breadInfo;
+        }
+
+        public List<String> getBreadNames() {
+            return new ArrayList<>(breadInfo.keySet());
+        }
+
+        public List<Integer> getBreadCounts() {
+            return new ArrayList<>(breadInfo.values());
+        }
+    }
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -39,6 +61,4 @@ public class ReservationDto {
             return new ArrayList<>(breadInfo.values());
         }
     }
-
-
 }

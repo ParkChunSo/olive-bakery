@@ -46,10 +46,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .mvcMatchers( "/olive/sign/signup").permitAll()
                     .mvcMatchers(HttpMethod.PUT,"/olive/sign").hasRole(MemberRole.CLIENT.name())
                     .mvcMatchers(HttpMethod.DELETE,"/olive/sign").hasRole(MemberRole.CLIENT.name())
-//                    .mvcMatchers(HttpMethod.POST, "/olive/sign").permitAll()
                     .mvcMatchers("/olive/admin/**").hasRole(MemberRole.ADMIN.name())
                     .mvcMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
+                    .mvcMatchers("/olive/sign/test").hasRole(MemberRole.CLIENT.name())
                 .and()
                     .exceptionHandling().authenticationEntryPoint(httpAuthenticationEntryPoint).accessDeniedHandler(accessDeniedHandler)
                 .and()

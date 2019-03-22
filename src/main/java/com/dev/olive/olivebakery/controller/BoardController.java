@@ -1,14 +1,16 @@
 package com.dev.olive.olivebakery.controller;
 
-import com.dev.olive.olivebakery.model.dto.BoardDto;
-import com.dev.olive.olivebakery.model.entity.Board;
-import com.dev.olive.olivebakery.model.enums.BoardType;
+import com.dev.olive.olivebakery.domain.dto.BoardDto;
+import com.dev.olive.olivebakery.domain.entity.Board;
+import com.dev.olive.olivebakery.domain.enums.BoardType;
 import com.dev.olive.olivebakery.service.BoardService;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Created by YoungMan on 2019-02-13.
+ * TODO
+ * 1. 게시물 하나씩 가져오기.
+ * 2. 게시물
  */
 
 @RestController
@@ -21,14 +23,14 @@ public class BoardController {
         this.boardService = boardService;
     }
 
-    @PostMapping
-    public void saveBoard(@RequestBody BoardDto.Save saveDto) {
-        boardService.saveBoard(saveDto);
-    }
-
     @GetMapping("/{type}/page/{num}")
     public Page<Board> getBoards(@PathVariable("type") BoardType boardType, @PathVariable("num") int pageNum) {
         return boardService.getBoards(boardType, pageNum);
+    }
+
+    @PostMapping
+    public void saveBoard(@RequestBody BoardDto.Save saveDto) {
+        boardService.saveBoard(saveDto);
     }
 
     @PutMapping

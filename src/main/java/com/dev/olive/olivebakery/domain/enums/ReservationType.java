@@ -1,4 +1,4 @@
-package com.dev.olive.olivebakery.model.enums;
+package com.dev.olive.olivebakery.domain.enums;
 
 import com.dev.olive.olivebakery.exception.UserDefineException;
 import lombok.Getter;

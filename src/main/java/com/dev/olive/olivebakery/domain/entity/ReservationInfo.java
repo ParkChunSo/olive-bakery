@@ -1,4 +1,4 @@
-package com.dev.olive.olivebakery.model.entity;
+package com.dev.olive.olivebakery.domain.entity;
 
 import lombok.*;
 

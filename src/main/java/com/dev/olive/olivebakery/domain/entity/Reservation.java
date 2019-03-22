@@ -1,7 +1,10 @@
-package com.dev.olive.olivebakery.model.entity;
+package com.dev.olive.olivebakery.domain.entity;
 
-import com.dev.olive.olivebakery.model.enums.ReservationType;
-import lombok.*;
+import com.dev.olive.olivebakery.domain.enums.ReservationType;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -36,19 +39,19 @@ public class Reservation {
     private ReservationType reservationType;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "email")
+    private Member member;
 
-    @OneToMany(mappedBy = "reservation")
+    @OneToMany(mappedBy = "reservation", fetch = FetchType.EAGER)
     private List<ReservationInfo> reservationInfos = new ArrayList<>();
 
     @Builder
-    public Reservation(Timestamp reservationTime, Timestamp bringTime, Integer price, User user, List<ReservationInfo> reservationInfos) {
+    public Reservation(Timestamp reservationTime, Timestamp bringTime, Integer price, Member member, List<ReservationInfo> reservationInfos) {
         this.reservationTime = reservationTime;
         this.bringTime = bringTime;
         this.price = price;
         this.reservationType = ReservationType.REQUEST;
-        this.user = user;
+        this.member = member;
         this.reservationInfos = reservationInfos;
     }
 

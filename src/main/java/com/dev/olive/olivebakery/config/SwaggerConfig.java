@@ -1,9 +1,5 @@
 package com.dev.olive.olivebakery.config;
 
-/*
- * http://localhost:port/swagger-ui.html
- */
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.PathSelectors;

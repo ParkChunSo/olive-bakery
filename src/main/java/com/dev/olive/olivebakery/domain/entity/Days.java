@@ -1,33 +1,30 @@
-package com.dev.olive.olivebakery.model.entity;
+package com.dev.olive.olivebakery.domain.entity;
 
+import com.dev.olive.olivebakery.domain.enums.DayType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 
 /**
- * Created by YoungMan on 2019-02-12.
+ * Created by YoungMan on 2019-02-08.
  */
 
 @Entity
-@Table(name = "favorite_tbl")
+@Table(name = "days_tbl")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Favorite {
+public class Days {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long favoriteId;
+    private Long dayId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Enumerated(value = EnumType.STRING)
+    private DayType day;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bread_id")
     private Bread bread;
-
-    private Integer page;
 }
