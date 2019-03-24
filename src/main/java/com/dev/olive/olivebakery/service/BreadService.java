@@ -42,7 +42,8 @@ public class BreadService {
         return finalPrice;
     }
 
-    /*public int getFinalPrice(List<Bread> breads) {
-        return breads.stream().mapToInt(bread -> Math.toIntExact(bread.getPrice())).sum();
-    }*/
+    public void getBread(){
+        List<Bread> breadList = breadRepository.findAll();
+    }
+
 }

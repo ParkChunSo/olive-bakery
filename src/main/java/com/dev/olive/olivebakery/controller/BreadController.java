@@ -2,7 +2,10 @@ package com.dev.olive.olivebakery.controller;
 
 import com.dev.olive.olivebakery.domain.dto.BreadDto;
 import com.dev.olive.olivebakery.domain.dto.ReviewDto;
+import com.dev.olive.olivebakery.service.BreadService;
 import com.dev.olive.olivebakery.service.ShoppingService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,19 +23,22 @@ import java.util.List;
  * 5.
  */
 @RestController
-@RequestMapping(value = "/olive")
+@RequestMapping(value = "/olive/bread")
 @Log4j2
 public class BreadController {
 
     ShoppingService shoppingService;
+    private final BreadService breadService;
 
-    public BreadController(ShoppingService shoppingService){
+    public BreadController(BreadService breadService, ShoppingService shoppingService){
         this.shoppingService = shoppingService;
+        this.breadService = breadService;
     }
 
-    @GetMapping("/bread/{day}")
-    public List<BreadDto> getBread(@PathVariable String day){
-        return shoppingService.getBreadByDay(day);
+    @ApiOperation("빵 전체 정보 가져오기")
+    @GetMapping
+    public List<BreadDto> getBread(){
+        return breadService.getBread();
     }
 
     @GetMapping("/review/{bread}")

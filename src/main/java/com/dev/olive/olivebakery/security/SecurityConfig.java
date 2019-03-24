@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    @Override
+/*    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
@@ -56,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .addFilterBefore(authenticationTokenProcessingFilter, BasicAuthenticationFilter.class)
                     .logout().logoutUrl("/olive/logout").logoutSuccessHandler(logoutSuccessHandlerCustom)
         ;
-    }
+    }*/
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -68,7 +68,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .mvcMatchers(HttpMethod.POST, "/olive/sign");
+                .mvcMatchers(HttpMethod.POST, "/olive/sign")
+                .mvcMatchers("/**");
     }
 
     @Bean

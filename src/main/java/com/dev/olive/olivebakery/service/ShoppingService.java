@@ -36,7 +36,6 @@ public class ShoppingService {
                     .description(bread.getDescription())
                     .picturePath(bread.getPicturePath())
                     .price(bread.getPrice())
-                    .soldOut(bread.getIsSoldOut())
                     .star(bread.getStar()).build();
             breadDtos.add(breadDto);
         }

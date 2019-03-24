@@ -1,5 +1,6 @@
 package com.dev.olive.olivebakery.repository;
 
+import com.dev.olive.olivebakery.domain.entity.Member;
 import com.dev.olive.olivebakery.domain.entity.Reservation;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -11,5 +12,5 @@ import java.util.Optional;
  */
 
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
-    Optional<List<Reservation>> findByMember(String email);
+    Optional<List<Reservation>> findByMember(Member member);
 }
