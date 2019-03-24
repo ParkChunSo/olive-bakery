@@ -29,7 +29,7 @@ public class BoardController {
     }
 
     @PostMapping
-    public void saveBoard(@RequestBody BoardDto.Save saveDto) {
+    public void saveBoard(@RequestBody BoardDto.SaveDto saveDto) {
         boardService.saveBoard(saveDto);
     }
 
