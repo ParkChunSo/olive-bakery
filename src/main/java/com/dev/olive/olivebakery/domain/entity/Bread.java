@@ -21,6 +21,7 @@ public class Bread {
     @Column(name = "bread_id")
     private Long breadId;
 
+    @Column(unique = true)
     private String name;
 
     private Integer price;
@@ -33,7 +34,7 @@ public class Bread {
     //빵을 클릭했을 때 선택한 빵의 상세 소개
     private String detailDescription;
 
-    // 관리자가 선정한 빵 상태( 추천, 등등)
+    // 관리자가 선정한 빵 상태(추천, 등등)
     @Enumerated(value = EnumType.STRING)
     private BreadState state;
 
@@ -42,6 +43,7 @@ public class Bread {
     @Enumerated(value = EnumType.STRING)
     private Set<DayType> days = new HashSet<>();
 
+    // 빵이 매진인지. (true면 매진)
     @OneToOne(fetch = FetchType.EAGER,mappedBy = "bread")
     private SoldOut soldOut;
 

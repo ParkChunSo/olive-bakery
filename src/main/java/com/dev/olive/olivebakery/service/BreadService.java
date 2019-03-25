@@ -19,11 +19,9 @@ import java.util.*;
 public class BreadService {
 
     private final BreadRepository breadRepository;
-    private final SoldOutRepository soldOutRepository;
 
-    public BreadService(BreadRepository breadRepository, SoldOutRepository soldOutRepository) {
+    public BreadService(BreadRepository breadRepository) {
         this.breadRepository = breadRepository;
-        this.soldOutRepository = soldOutRepository;
     }
 
     public Bread findByName(String breadName) {
@@ -70,9 +68,9 @@ public class BreadService {
         return breadGetAll;
     }
 
-    public BreadDto.GetDetail getBreadDetails(Long breadId){
-        Bread bread = breadRepository.findById(breadId)
-                .orElseThrow(() -> new UserDefineException("빵의 Id를 잘못 입력하셨습니다."));
+    public BreadDto.GetDetail getBreadDetails(String name){
+        Bread bread = breadRepository.findByName(name)
+                .orElseThrow(() -> new UserDefineException(name + "이란 빵은 존재하지 않습니다."));
         boolean isSoldOut = false;
         if(bread.getSoldOut() != null)
             isSoldOut = bread.getSoldOut().getDate().isEqual(LocalDate.now());
@@ -92,6 +90,11 @@ public class BreadService {
                 .detailDescription(bread.getDetailDescription())
                 .ingredientsList(ingredientList)
                 .soldOut(isSoldOut)
+                .breadState(bread.getState())
                 .build();
+    }
+
+    public void updateBread(BreadDto.Save updateBread){
+
     }
 }

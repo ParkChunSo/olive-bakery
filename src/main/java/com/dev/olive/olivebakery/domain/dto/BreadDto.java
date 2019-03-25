@@ -13,6 +13,18 @@ import java.util.List;
 public class BreadDto {
 
     @Getter @NoArgsConstructor
+    public static class Ingredient{
+        private String ingredient;
+        private String origin;
+
+        @Builder
+        public Ingredient(String ingredient, String origin){
+            this.ingredient = ingredient;
+            this.origin = origin;
+        }
+    }
+
+    @Getter @NoArgsConstructor
     public static class GetAll {
         private String name;
         private int price;
@@ -40,26 +52,35 @@ public class BreadDto {
         private String detailDescription;
         private List<Ingredient> ingredientsList = new ArrayList<>();
         private boolean soldOut;
+        private BreadState breadState;
         @Builder
-        public GetDetail(String name, int price, String picturePath, String detailDescription, boolean soldOut, List<Ingredient> ingredientsList){
+        public GetDetail(String name, int price, String picturePath, String detailDescription, boolean soldOut, List<Ingredient> ingredientsList, BreadState breadState){
             this.name = name;
             this.price = price;
             this.picturePath = picturePath;
             this.detailDescription = detailDescription;
             this.soldOut = soldOut;
             this.ingredientsList = ingredientsList;
+            this.breadState = breadState;
         }
     }
 
     @Getter @NoArgsConstructor
-    public static class Ingredient{
-        private String ingredient;
-        private String origin;
-
+    public static class Save{
+        private String name;
+        private int price;
+        private String picturePath;
+        private String description;
+        private String detailDescription;
+        private List<Ingredient> ingredientsList = new ArrayList<>();
         @Builder
-        public Ingredient(String ingredient, String origin){
-            this.ingredient = ingredient;
-            this.origin = origin;
+        public Save(String name, int price, String picturePath, String description, String detailDescription, List<Ingredient> ingredientsList){
+            this.name = name;
+            this.price = price;
+            this.picturePath = picturePath;
+            this.description = description;
+            this.detailDescription = detailDescription;
+            this.ingredientsList = ingredientsList;
         }
     }
 
