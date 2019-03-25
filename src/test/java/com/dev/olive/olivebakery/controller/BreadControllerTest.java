@@ -1,9 +1,6 @@
 package com.dev.olive.olivebakery.controller;
 
-import com.dev.olive.olivebakery.domain.entity.Bread;
-import com.dev.olive.olivebakery.domain.entity.Days;
-import com.dev.olive.olivebakery.domain.entity.Member;
-import com.dev.olive.olivebakery.domain.entity.Review;
+import com.dev.olive.olivebakery.domain.entity.*;
 import com.dev.olive.olivebakery.domain.enums.DayType;
 import com.dev.olive.olivebakery.repository.BreadRepository;
 import com.dev.olive.olivebakery.repository.DaysRepository;
@@ -15,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -22,7 +20,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -45,7 +46,6 @@ public class BreadControllerTest {
     @Autowired
     MemberRepository memberRepository;
 
-    @Autowired
     MockMvc mockMvc;
 
     @Autowired
@@ -59,11 +59,31 @@ public class BreadControllerTest {
 
     @Test
     public void getDay(){
+        Ingredient ingredient1 = Ingredient.builder().name("밀가루").origin("중국").build();
+        Ingredient ingredient2 = Ingredient.builder().name("버터").origin("한국").build();
+        Ingredient ingredient3 = Ingredient.builder().name("땅콩").origin("미국").build();
+        Ingredient ingredient4 = Ingredient.builder().name("호두").origin("한국").build();
+        Ingredient ingredient5 = Ingredient.builder().name("버터").origin("한국").build();
+        Ingredient ingredient6 = Ingredient.builder().name("땅콩").origin("미국").build();
+
+        List<Ingredient> ingredients1 = new ArrayList<>();
+        List<Ingredient> ingredients2 = new ArrayList<>();
+
+        ingredients1.add(ingredient1);
+        ingredients1.add(ingredient2);
+        ingredients1.add(ingredient3);
+
+        ingredients2.add(ingredient5);
+        ingredients2.add(ingredient6);
+        ingredients2.add(ingredient4);
+
         Bread bread1 = Bread.builder()
                 .description("맛있는 빵")
                 .name("치아바타")
                 .picturePath("asdfasdf")
                 .price(20000)
+                .ingredients(ingredients1)
+                .detailDescription("자세한 설명입니다.111111")
                 .star(1).build();
 
         Bread bread2 = Bread.builder()
@@ -71,6 +91,8 @@ public class BreadControllerTest {
                 .name("치아바타22")
                 .picturePath("asdfasdf")
                 .price(20000)
+                .ingredients(ingredients2)
+                .detailDescription("자세한 설명입니다.222222")
                 .star(1).build();
 
         Days days1 = Days.builder()
@@ -145,8 +167,7 @@ public class BreadControllerTest {
 
     @Test
     public void getBread() throws Exception{
-        this.mockMvc.perform(get("olive/bread/day/{day}", "mon")).andDo(print())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        this.mockMvc.perform(get("localhost:8080/olive/bread/day/{day}", "mon")).andDo(print())
                 .andExpect(status().isOk());
 
 //        assertThat(daysRepository.findBread(DayType.MON).size()).isEqualTo(2);

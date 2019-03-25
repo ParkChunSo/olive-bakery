@@ -1,6 +1,7 @@
 package com.dev.olive.olivebakery.domain.dto;
 
 
+import com.dev.olive.olivebakery.domain.entity.Ingredient;
 import com.dev.olive.olivebakery.domain.enums.DayType;
 import lombok.Builder;
 import lombok.Data;
@@ -18,5 +19,7 @@ public class BreadDto {
     private Integer star;
     private DayType day;
     private List<DayType> days;
+    private List<Ingredient> ingredients;
+    private String detailDescription;
 
 }

@@ -21,30 +21,30 @@ public class BreadController {
         this.breadService = breadService;
     }
 
+    // 요일 별로 리스트로 가져오기
     @GetMapping("/day/{day}")
     public List<BreadDto> getBread(@PathVariable String day){
         log.info("----------------bread/day" + day.toUpperCase());
         return breadService.getBreadByDay(day);
     }
 
+    //빵 리뷰
     @GetMapping("/review/{bread}")
     public List<ReviewDto> getReview(@PathVariable String bread){
         return breadService.getReview(bread);
     }
 
+    // 빵 하나씩 가져오기
     @GetMapping("/name/{name}")
     public BreadDto getBreadByName(@PathVariable String name){
         return breadService.findByName(name);
     }
 
+    // 빵 저장
     @PostMapping()
     public String saveBread(@RequestBody BreadDto breadDto){
         return breadService.saveBread(breadDto);
     }
-
-
-
-
 
     @GetMapping()
     public String test(){

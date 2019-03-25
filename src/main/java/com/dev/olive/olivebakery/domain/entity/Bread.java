@@ -38,10 +38,10 @@ public class Bread {
 
     private Integer star;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinTable(joinColumns = @JoinColumn(name = "bread_id"),
             inverseJoinColumns = @JoinColumn(name = "ingredients_id"))
-    private List<Ingredients> ingredients = new ArrayList<>();
+    private List<Ingredient> ingredients = new ArrayList<>();
 
     // TODO(추가해야할 컬럼 조사)
 
