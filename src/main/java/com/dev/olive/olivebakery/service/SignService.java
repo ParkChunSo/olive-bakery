@@ -1,9 +1,8 @@
 package com.dev.olive.olivebakery.service;
 
-import com.dev.olive.olivebakery.domain.enums.MemberRole;
-import com.dev.olive.olivebakery.domain.dto.SignInDto;
-import com.dev.olive.olivebakery.domain.dto.SignUpDto;
+import com.dev.olive.olivebakery.domain.dto.SignDto;
 import com.dev.olive.olivebakery.domain.entity.Member;
+import com.dev.olive.olivebakery.domain.enums.MemberRole;
 import com.dev.olive.olivebakery.exception.UserDefineException;
 import com.dev.olive.olivebakery.repository.MemberRepository;
 import com.dev.olive.olivebakery.utill.TokenUtills;
@@ -46,7 +45,7 @@ public class SignService implements UserDetailsService {
                 .collect(Collectors.toSet());
     }
 
-    public String signIn(SignInDto signInDto){
+    public String signIn(SignDto.SignIn signInDto){
         Member member = memberRepository.findByEmail(signInDto.getId())
                 .orElseThrow(() -> new UserDefineException("아이디를 잘못 입력하셨습니다."));
 
@@ -57,7 +56,7 @@ public class SignService implements UserDetailsService {
         return TokenUtills.createToken(member.toUser());
     }
 
-    public String signUp(SignUpDto signupDto, String ROLE){
+    public String signUp(SignDto.SignUp signupDto, String ROLE){
         if(memberRepository.findByEmail(signupDto.getEmail()).isPresent())
             throw new UserDefineException("아이디가 중복됩니다.");
 
@@ -73,13 +72,13 @@ public class SignService implements UserDetailsService {
         return TokenUtills.createToken(member.toUser());
     }
 
-    public void update(SignUpDto signupDto) {
+    public void update(SignDto.SignUp signupDto) {
         Member member = memberRepository.findByEmail(signupDto.getEmail())
                 .orElseThrow(() -> new UserDefineException("아이디가 존재하지 않습니다."));
         memberRepository.save(member);
     }
 
-    public void delete(SignInDto signInDto) {
+    public void delete(SignDto.SignIn signInDto) {
         Member member = memberRepository.findByEmail(signInDto.getId())
                 .orElseThrow(() -> new UserDefineException("아이디를 잘못 입력하셨습니다."));
         if(passwordEncoder.matches(signInDto.getPw(), member.getPw()))

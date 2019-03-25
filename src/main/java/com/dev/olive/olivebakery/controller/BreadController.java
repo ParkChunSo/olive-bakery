@@ -3,7 +3,6 @@ package com.dev.olive.olivebakery.controller;
 import com.dev.olive.olivebakery.domain.dto.BreadDto;
 import com.dev.olive.olivebakery.domain.enums.DayType;
 import com.dev.olive.olivebakery.service.BreadService;
-import com.dev.olive.olivebakery.service.ShoppingService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
@@ -15,11 +14,9 @@ import java.util.List;
 @Log4j2
 public class BreadController {
 
-    ShoppingService shoppingService;
     private final BreadService breadService;
 
-    public BreadController(BreadService breadService, ShoppingService shoppingService){
-        this.shoppingService = shoppingService;
+    public BreadController(BreadService breadService){
         this.breadService = breadService;
     }
 

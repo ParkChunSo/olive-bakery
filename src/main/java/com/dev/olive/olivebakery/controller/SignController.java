@@ -1,7 +1,6 @@
 package com.dev.olive.olivebakery.controller;
 
-import com.dev.olive.olivebakery.domain.dto.SignInDto;
-import com.dev.olive.olivebakery.domain.dto.SignUpDto;
+import com.dev.olive.olivebakery.domain.dto.SignDto;
 import com.dev.olive.olivebakery.domain.enums.MemberRole;
 import com.dev.olive.olivebakery.service.SignService;
 import io.swagger.annotations.ApiOperation;
@@ -23,25 +22,25 @@ public class SignController {
 
     @ApiOperation("회원가입")
     @PostMapping("/signup")
-    public String signUp(@RequestBody SignUpDto signupDto){
+    public String signUp(@RequestBody SignDto.SignUp signupDto){
         return signService.signUp(signupDto, MemberRole.CLIENT.name());
     }
 
     @ApiOperation("로그인")
     @PostMapping
-    public String signIn(@RequestBody SignInDto signInDto){
+    public String signIn(@RequestBody SignDto.SignIn signInDto){
         return signService.signIn(signInDto);
     }
 
     @ApiOperation("회원정보 수정")
     @PutMapping
-    public void update(@RequestBody SignUpDto signupDto){
+    public void update(@RequestBody SignDto.SignUp signupDto){
         signService.update(signupDto);
     }
 
     @ApiOperation("회원정보 삭제")
     @DeleteMapping
-    public void delete(@RequestBody SignInDto signInDto){
+    public void delete(@RequestBody SignDto.SignIn signInDto){
         signService.delete(signInDto);
     }
 
