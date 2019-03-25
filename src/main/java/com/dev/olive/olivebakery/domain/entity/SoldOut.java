@@ -1,18 +1,21 @@
 package com.dev.olive.olivebakery.domain.entity;
 
+import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
-@Entity
+@Entity @Getter
 @Table(name = "sold_out_tbl")
 public class SoldOut {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @CreationTimestamp
-    private Date date;
+    private LocalDate date;
 
+    @OneToOne
+    @JoinColumn(name = "bread_id")
     private Bread bread;
 }

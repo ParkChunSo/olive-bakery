@@ -1,11 +1,16 @@
 package com.dev.olive.olivebakery.domain.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
-@Entity @Getter @Setter @Builder
-@NoArgsConstructor @AllArgsConstructor
+@Entity @Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Ingredients {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ingredients_id")

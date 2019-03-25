@@ -2,10 +2,7 @@ package com.dev.olive.olivebakery.domain.entity;
 
 import com.dev.olive.olivebakery.domain.enums.BreadState;
 import com.dev.olive.olivebakery.domain.enums.DayType;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,18 +10,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by YoungMan on 2019-02-08.
- */
-
 @Entity
 @Table(name = "bread_tbl")
-@Getter
+@Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Bread {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "bread_id")
     private Long breadId;
 
     private String name;
@@ -48,8 +42,11 @@ public class Bread {
     @Enumerated(value = EnumType.STRING)
     private Set<DayType> days = new HashSet<>();
 
+    @OneToOne(fetch = FetchType.EAGER,mappedBy = "bread")
+    private SoldOut soldOut;
+
     // 어떤 재료가 들어가며 재료의 원산지 표기
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "bread")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bread", fetch = FetchType.LAZY)
     private List<Ingredients> ingredients = new ArrayList<>();
 
     @Builder
