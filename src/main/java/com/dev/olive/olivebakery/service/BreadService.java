@@ -1,10 +1,14 @@
 package com.dev.olive.olivebakery.service;
 
+import com.dev.olive.olivebakery.domain.dto.BreadDto;
+import com.dev.olive.olivebakery.domain.enums.DayType;
 import com.dev.olive.olivebakery.exception.UserDefineException;
 import com.dev.olive.olivebakery.domain.entity.Bread;
 import com.dev.olive.olivebakery.repository.BreadRepository;
+import com.dev.olive.olivebakery.repository.SoldOutRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -42,7 +46,55 @@ public class BreadService {
         return finalPrice;
     }
 
-    /*public int getFinalPrice(List<Bread> breads) {
-        return breads.stream().mapToInt(bread -> Math.toIntExact(bread.getPrice())).sum();
-    }*/
+    public List<BreadDto.GetAll> getBreadByDay(DayType day){
+        List<Bread> breadList = breadRepository.findByDays(day);
+        List<BreadDto.GetAll> breadGetAll = new ArrayList<>();
+        breadList.forEach(bread -> {
+            boolean isSoldOut = false;
+            if(bread.getSoldOut() != null)
+                isSoldOut = bread.getSoldOut().getDate().isEqual(LocalDate.now());
+            breadGetAll.add(
+                BreadDto.GetAll.builder()
+                        .picturePath(bread.getPicturePath())
+                        .name(bread.getName())
+                        .price(bread.getPrice())
+                        .description(bread.getDescription())
+                        .soldOut(isSoldOut)
+                        .breadState(bread.getState())
+                        .build());
+
+        });
+
+        return breadGetAll;
+    }
+
+    public BreadDto.GetDetail getBreadDetails(String name){
+        Bread bread = breadRepository.findByName(name)
+                .orElseThrow(() -> new UserDefineException(name + "이란 빵은 존재하지 않습니다."));
+        boolean isSoldOut = false;
+        if(bread.getSoldOut() != null)
+            isSoldOut = bread.getSoldOut().getDate().isEqual(LocalDate.now());
+
+        List<BreadDto.Ingredient> ingredientList = new ArrayList<>();
+        bread.getIngredients().forEach(ingredient -> ingredientList.add(
+                BreadDto.Ingredient.builder()
+                        .ingredient(ingredient.getName())
+                        .origin(ingredient.getOrigin())
+                        .build()
+        ));
+
+        return BreadDto.GetDetail.builder()
+                .name(bread.getName())
+                .price(bread.getPrice())
+                .picturePath(bread.getPicturePath())
+                .detailDescription(bread.getDetailDescription())
+                .ingredientsList(ingredientList)
+                .soldOut(isSoldOut)
+                .breadState(bread.getState())
+                .build();
+    }
+
+    public void updateBread(BreadDto.Save updateBread){
+
+    }
 }

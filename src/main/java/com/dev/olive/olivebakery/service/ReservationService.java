@@ -81,7 +81,7 @@ public class ReservationService {
     // userId로 예약된 모든 정보 가져오기.
     // TODO Reservation Type의 따라 따로 보내줄것(정렬도 괜춘)
     public List<ReservationDto.Get> getReservationInfoByUserId(String userId) {
-        List<Reservation> reservations = reservationRepository.findByMember(userId)
+        List<Reservation> reservations = reservationRepository.findByMember(signService.findById(userId))
                 .orElseThrow(() -> new UserDefineException("해당 아이디로 예약되어 있는 목록이 존재하지 않습니다."));
 
         List<ReservationDto.Get> getList = new ArrayList<>();
