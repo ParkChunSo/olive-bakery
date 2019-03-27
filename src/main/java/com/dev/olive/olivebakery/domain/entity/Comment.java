@@ -1,11 +1,11 @@
 package com.dev.olive.olivebakery.domain.entity;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 /**
  * Created by YoungMan on 2019-02-11.
@@ -13,7 +13,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "comment_tbl")
-@Getter
+@Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Comment {
 
@@ -21,7 +21,21 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
 
+    @CreationTimestamp
+    private LocalDateTime insertTime;
+
+    @UpdateTimestamp
+    private LocalDateTime updateTime;
+
+    private String name;
+
     @Lob
     private String content;
+
+    @Builder
+    public Comment(String name, String content){
+        this.name = name;
+        this.content = content;
+    }
 
 }

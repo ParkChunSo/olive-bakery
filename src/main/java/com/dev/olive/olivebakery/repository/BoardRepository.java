@@ -18,8 +18,13 @@ import java.util.Optional;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
 
-    Optional<List<Board>> findByMember (@Param("member") Member member);
+    Page<Board> findByTitle(String title, Pageable pageable);
+
+
+
+
+/*    Optional<List<Board>> findByMember (@Param("member") Member member);
 
     @Query("select b from Board b where b.boardType = :boardType")
-    Page<Board> findAll(@Param("pageRequest") Pageable pageable, @Param("boardType") BoardType boardType);
+    Page<Board> findAll(@Param("pageRequest") Pageable pageable, @Param("boardType") BoardType boardType);*/
 }

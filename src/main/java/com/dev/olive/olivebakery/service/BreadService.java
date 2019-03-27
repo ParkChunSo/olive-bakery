@@ -34,8 +34,8 @@ public class BreadService {
     }
 
     public int getFinalPrice(LinkedHashMap<String, Integer> breadInfos) {
-        List<String> breadNames = new ArrayList<String>(breadInfos.keySet());
-        List<Integer> counts = new ArrayList<Integer>(breadInfos.values());
+        List<String> breadNames = new ArrayList<>(breadInfos.keySet());
+        List<Integer> counts = new ArrayList<>(breadInfos.values());
         List<Bread> breads = findsByNames(breadNames);
         int finalPrice = 0;
 
@@ -53,6 +53,7 @@ public class BreadService {
             boolean isSoldOut = false;
             if(bread.getSoldOut() != null)
                 isSoldOut = bread.getSoldOut().getDate().isEqual(LocalDate.now());
+
             breadGetAll.add(
                 BreadDto.GetAll.builder()
                         .picturePath(bread.getPicturePath())
@@ -95,6 +96,8 @@ public class BreadService {
     }
 
     public void updateBread(BreadDto.Save updateBread){
+        Bread bread = breadRepository.findByName(updateBread.getName())
+                .orElseThrow(() -> new UserDefineException(updateBread.getName() + "이란 빵은 존재하지 않습니다."));
 
     }
 }

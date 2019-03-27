@@ -1,6 +1,7 @@
 package com.dev.olive.olivebakery.controller;
 
 import com.dev.olive.olivebakery.domain.dto.BoardDto;
+import com.dev.olive.olivebakery.domain.dto.CommentDto;
 import com.dev.olive.olivebakery.domain.entity.Board;
 import com.dev.olive.olivebakery.domain.enums.BoardType;
 import com.dev.olive.olivebakery.service.BoardService;
@@ -41,6 +42,16 @@ public class BoardController {
     @DeleteMapping("/{num}")
     public void deleteBoard(@PathVariable("num") Long boardId) {
         boardService.deleteBoard(boardId);
+    }
+
+    @PostMapping("/comment")
+    public void saveComment(@RequestBody CommentDto.Save comment){
+        boardService.saveComment(comment);
+    }
+
+    @PutMapping("/comment")
+    public void updateComment(@RequestBody CommentDto.Update comment){
+        boardService.updateComment(comment);
     }
 
 
