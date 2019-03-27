@@ -18,7 +18,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "board_tbl")
-@Getter
+@Getter @Setter
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Board {
@@ -61,6 +61,4 @@ public class Board {
         this.context = updateDto.getContext();
         this.title = updateDto.getTitle();
     }
-
-
 }

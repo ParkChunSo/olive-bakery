@@ -8,10 +8,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-/**
- * Created by YoungMan on 2019-03-05.
- */
-
 public class BoardDto {
 
     @Getter
