@@ -27,14 +27,14 @@ public class Comment {
     @UpdateTimestamp
     private LocalDateTime updateTime;
 
-    private String name;
+    private String userName;
 
     @Lob
     private String content;
 
     @Builder
-    public Comment(String name, String content){
-        this.name = name;
+    public Comment(String userName, String content){
+        this.userName = userName;
         this.content = content;
     }
 

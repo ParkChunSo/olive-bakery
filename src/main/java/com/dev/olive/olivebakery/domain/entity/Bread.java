@@ -10,6 +10,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+//TODO 빵이 지금 판매되고 있는지
+
+
 @Entity
 @Table(name = "bread_tbl")
 @Getter @Setter
@@ -34,6 +37,8 @@ public class Bread {
     //빵을 클릭했을 때 선택한 빵의 상세 소개
     private String detailDescription;
 
+    private boolean isSelling;
+
     // 관리자가 선정한 빵 상태(추천, 등등)
     @Enumerated(value = EnumType.STRING)
     private BreadState state;
@@ -52,12 +57,13 @@ public class Bread {
     private List<Ingredients> ingredients = new ArrayList<>();
 
     @Builder
-    public Bread(String name, Integer price, String picturePath, String detailDescription, String description, BreadState state, Set<DayType> days, List<Ingredients> ingredients) {
+    public Bread(String name, Integer price, String picturePath, String detailDescription, String description, boolean isSelling, BreadState state, Set<DayType> days, List<Ingredients> ingredients) {
         this.name = name;
         this.price = price;
         this.picturePath = picturePath;
         this.description = description;
         this.detailDescription = detailDescription;
+        this.isSelling = isSelling;
         this.state = state;
         this.days = days;
         this.ingredients = ingredients;

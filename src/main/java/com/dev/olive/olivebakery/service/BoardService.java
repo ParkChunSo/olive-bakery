@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -36,10 +37,9 @@ public class BoardService {
      * 공지 or 질문 게시판 타입에 맞게 페이징
      */
     public Page<Board> getBoards(BoardType boardType, int pageNum) {
-//        PageRequest pageRequest = new PageRequest(pageNum - 1, 10, Sort.Direction.DESC, "boardId");
-//        return boardRepository.findAll(pageRequest, boardType);
-        Pageable pageable = PageRequest.of(1, 10, new Sort(Sort.Direction.DESC, "boardId"));
-        return boardRepository.findAll(pageable);
+        Pageable pageable = PageRequest.of(pageNum - 1, 10, new Sort(new Sort.Order(Sort.Direction.DESC, "boardId"), new Sort.Order(Sort.Direction.DESC, "isNotice")));
+        Page<Board> byBoardType = boardRepository.findByBoardType(boardType, pageable);
+        return byBoardType;
     }
 
     public void saveBoard(BoardDto.Save saveDto) {
@@ -73,7 +73,7 @@ public class BoardService {
         List<Comment> comments = board.getComments();
         comments.forEach(comment->{
             if(Long.valueOf(updateComment.getCommentId()).equals(comment.getCommentId())){
-                if(!comment.getName().equals(updateComment.getName()))
+                if(!comment.getUserName().equals(updateComment.getUserName()))
                     throw new UserDefineException("수정은 작성자만 가능합니다.");
 
                 comment.setContent(updateComment.getContent());

@@ -12,10 +12,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by YoungMan on 2019-02-11.
- */
-
 @Entity
 @Table(name = "board_tbl")
 @Getter @Setter
@@ -38,27 +34,38 @@ public class Board {
     @Lob
     private String context;
 
+    // 게시판인지 QnA인지
     @Enumerated(EnumType.STRING)
     private BoardType boardType;
 
+    //공지사항일 경우 true
+    private boolean isNotice = false;
+
+    //비밀글일 경우 true
+    private boolean isSecret = false;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "email")
+    @JoinColumn(name = "member")
     private Member member;
 
-    @OneToMany//단방향
+    @OneToMany(fetch = FetchType.EAGER)//단방향
     @JoinColumn(name = "board_id")
     private List<Comment> comments = new ArrayList<>();
 
     @Builder
-    public Board(String title, String context, BoardType boardType, Member member) {
+    public Board(String title, String context, BoardType boardType, boolean isNotice, boolean isSecret, Member member) {
         this.title = title;
         this.context = context;
         this.boardType = boardType;
+        this.isNotice = isNotice;
+        this.isSecret = isSecret;
         this.member = member;
     }
 
     public void updateBoard(BoardDto.Update updateDto) {
         this.context = updateDto.getContext();
         this.title = updateDto.getTitle();
+        this.isNotice = updateDto.getIsNotice().matches("true");
+        this.isSecret = updateDto.getIsSecret().matches("true");
     }
 }

@@ -1,7 +1,10 @@
 package com.dev.olive.olivebakery.domain.entity;
 
 import com.dev.olive.olivebakery.domain.enums.MemberRole;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
@@ -38,7 +41,7 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Reservation> reservations = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member" ,fetch = FetchType.LAZY)
     private List<Board> boards = new ArrayList<>();
 
     @Builder

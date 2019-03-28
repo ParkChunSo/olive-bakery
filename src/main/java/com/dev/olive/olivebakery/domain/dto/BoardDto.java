@@ -16,14 +16,18 @@ public class BoardDto {
         private String context;
         private String title;
         private String userId;
-        private String boardType;
+        private BoardType boardType;
+        private String isNotice;
+        private String isSecret;
 
         @Builder
-        public Save(String context, String title, String userId, String boardType) {
+        public Save(String context, String title, String userId, BoardType boardType, String isSecret, String isNotice) {
             this.context = context;
             this.title = title;
             this.userId = userId;
             this.boardType = boardType;
+            this.isNotice = isNotice;
+            this.isSecret = isSecret;
         }
 
         public Board toEntity(Member member) {
@@ -31,7 +35,9 @@ public class BoardDto {
                     .context(context)
                     .title(title)
                     .member(member)
-                    .boardType(BoardType.convertStrToEnum(boardType))
+                    .boardType(boardType)
+                    .isNotice(isNotice.matches("true"))
+                    .isSecret(isSecret.matches("true"))
                     .build();
         }
     }
@@ -42,12 +48,16 @@ public class BoardDto {
         private Long boardId;
         private String context;
         private String title;
+        private String isNotice;
+        private String isSecret;
 
         @Builder
-        public Update(Long boardId, String context, String title) {
+        public Update(Long boardId, String context, String title, String isSecret, String isNotice) {
             this.boardId = boardId;
             this.context = context;
             this.title = title;
+            this.isNotice = isNotice;
+            this.isSecret = isSecret;
         }
     }
 }

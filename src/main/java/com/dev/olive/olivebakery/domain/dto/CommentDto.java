@@ -10,12 +10,12 @@ public class CommentDto {
     @Getter @NoArgsConstructor
     public static class Save{
         private String boardId;
-        private String name;
+        private String userName;
         private String content;
 
         public Comment toEntity(){
             return Comment.builder()
-                    .name(name)
+                    .userName(userName)
                     .content(content)
                     .build();
         }
@@ -25,12 +25,12 @@ public class CommentDto {
     public static class Update{
         private String boardId;
         private String commentId;
-        private String name;
+        private String userName;
         private String content;
 
         public Comment toEntity(){
             return Comment.builder()
-                    .name(name)
+                    .userName(userName)
                     .content(content)
                     .build();
         }

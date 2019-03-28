@@ -53,7 +53,4 @@ public class BoardController {
     public void updateComment(@RequestBody CommentDto.Update comment){
         boardService.updateComment(comment);
     }
-
-
-
 }

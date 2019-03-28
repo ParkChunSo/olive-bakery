@@ -18,7 +18,17 @@ import java.util.Optional;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
 
-    Page<Board> findByTitle(String title, Pageable pageable);
+    Page<Board> findByTitleAndBoardType(String title, BoardType boardType, Pageable pageable);
+
+    Page<Board> findByBoardType(BoardType boardType, Pageable pageable);
+
+    // 게시물 10개 가져오기
+    List<Board> findTop10ByBoardTypeAndIsNoticeIsFalse(BoardType boardType);
+
+    // 공지사항 가져오기
+    List<Board> findByBoardTypeAndIsNoticeIsTrue(BoardType boardType);
+
+    //
 
 
 
