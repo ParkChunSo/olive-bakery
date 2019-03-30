@@ -1,7 +1,6 @@
 package com.dev.olive.olivebakery.jpa;
 
 import com.dev.olive.olivebakery.domain.dto.BoardDto;
-import com.dev.olive.olivebakery.domain.dto.ReservationDto;
 import com.dev.olive.olivebakery.domain.entity.Board;
 import com.dev.olive.olivebakery.domain.entity.Bread;
 import com.dev.olive.olivebakery.domain.enums.BoardType;
@@ -16,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.sql.Timestamp;
 import java.util.*;
 
 /**
@@ -44,7 +42,7 @@ public class JpaTest {
      */
     @Test
     public void saveBoard() {
-        BoardDto.Save saveDto = BoardDto.Save.builder()
+        BoardDto.SaveDto saveDto = BoardDto.SaveDto.builder()
                 .userId("testid")
                 .context("test_context")
                 .title("test_title")
@@ -99,7 +97,7 @@ public class JpaTest {
         System.out.println(boards.size());
     }
 
-    /*@Test
+    /*@GetTmpDto
     public void deleteUser() {
         signService.delete("testid");
     }*/
@@ -129,25 +127,5 @@ public class JpaTest {
         System.out.println(counts.get(0).toString() + "++++" + counts.get(1).toString());
     }
 
-    /*
-     * 예약
-     */
-    @Test
-    public void saveReservation() {
-
-        LinkedHashMap<String, Integer> maps = new LinkedHashMap<>();
-        maps.put("소보로",1);//소보로 1개구매
-        maps.put("단팥빵",5);//단팥빵 5개구매
-
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-
-        ReservationDto.Save saveDto = ReservationDto.Save.builder()
-                .bringTime(timestamp)
-                .userId("testid")
-                .breadInfo(maps)
-                .build();
-
-        reservationService.saveReservation(saveDto);
-    }
 
 }

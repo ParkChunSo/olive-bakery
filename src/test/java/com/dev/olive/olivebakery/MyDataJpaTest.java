@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
@@ -33,7 +34,7 @@ public class MyDataJpaTest {
     @Autowired
     MemberRepository memberRepository;
 
-    @Test
+    /*@GetTmpDto
     public void getDay(){
         Bread bread1 = Bread.builder().id(Long.valueOf(1))
                 .description("맛있는 빵")
@@ -106,17 +107,17 @@ public class MyDataJpaTest {
 
         memberRepository.save(user);
 
-        /*
+        *//*
         List<Days> days = daysRepository.findByDay("월");
 
         //assertThat(days.size()).isEqualTo(1);
-        //assertThat(days.get(0).getBread().getName()).isEqualTo("치아바타");
+        //assertThat(days.get(0).getBread().getBreadName()).isEqualTo("치아바타");
 
         assertThat(daysRepository.findBread("월").size()).isEqualTo(1);
-        assertThat(daysRepository.findBread("월").get(0).getName()).isEqualTo("치아바타");
-        */
+        assertThat(daysRepository.findBread("월").get(0).getBreadName()).isEqualTo("치아바타");
+        *//*
 
         assertThat(reviewRepository.findByBread(bread1).size()).isEqualTo(2);
 
-    }
+    }*/
 }

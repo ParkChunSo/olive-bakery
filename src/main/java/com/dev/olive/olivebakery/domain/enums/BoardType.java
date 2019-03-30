@@ -24,11 +24,9 @@ public enum BoardType {
         if (board.equals(NOTICE.getBoardExplain())) {
             return NOTICE;
         }
-
         if (board.equals(QUESTION.getBoardExplain())) {
             return QUESTION;
         }
-
         throw new UserDefineException("해당 Enum 타입이 없습니다.");
     }
 }

@@ -39,7 +39,7 @@ public class BoardService {
                 .orElseThrow(() -> new UserDefineException("해당 유저의 게시글이 없습니다."));
     }
 
-    /*
+    /**
      * 공지 or 질문 게시판 타입에 맞게 페이징
      */
     public Page<Board> getBoards(BoardType boardType, int pageNum) {
@@ -47,9 +47,8 @@ public class BoardService {
         return boardRepository.findAll(pageRequest, boardType);
     }
 
-    public void saveBoard(BoardDto.Save saveDto) {
+    public void saveBoard(BoardDto.SaveDto saveDto) {
         Member member = signService.findById(saveDto.getUserId());
-
         Board board = saveDto.toEntity(member);
         boardRepository.save(board);
     }

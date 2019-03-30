@@ -70,7 +70,7 @@ public class OliveBakeryApplicationTests {
                 .build();
     }
 
-    @Test
+   /* @GetTmpDto
     public void createUserTest() {
         signupDto = SignUpDto.builder()
                 .email("cnsth123@email.com")
@@ -86,14 +86,14 @@ public class OliveBakeryApplicationTests {
         assertThat(passwordEncoder.matches("pass1", member.getPw()), is(true));
 
         System.out.println(member.getRole());
-        /*Collection<? extends GrantedAuthority> authorities1 = member.getRole();
+        *//*Collection<? extends GrantedAuthority> authorities1 = member.getRole();
         Iterator<? extends GrantedAuthority> it = authorities1.iterator();
         Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) user.getAuthorities();
         while (it.hasNext()) {
             GrantedAuthority authority = it.next();
             assertThat(authorities, hasItem(new SimpleGrantedAuthority(authority.getAuthority())));
-        }*/
-    }
+        }*//*
+    }*/
     @Test
     public void loginTest() throws Exception {
         SignInDto request = new SignInDto();

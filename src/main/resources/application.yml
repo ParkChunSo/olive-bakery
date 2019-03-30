@@ -1,4 +1,10 @@
 spring:
+  profiles:
+    active: test
+
+---
+spring:
+  profiles: local
   jpa:
     hibernate:
       ddl-auto: update
@@ -16,3 +22,24 @@ logging:
 
 server:
   port: 8080
+
+---
+spring:
+  profiles: test
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    open-in-view: true
+  datasource:
+    url: jdbc:mysql://yjinstance.cvfd8m7cgyo4.ap-northeast-2.rds.amazonaws.com:3306/olive_bread?useSSL=false&serverTimezone=Asia/Seoul
+    username: root
+    password: 11111111
+logging:
+  level:
+    root: info
+
+server:
+  port: 8085

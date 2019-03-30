@@ -16,14 +16,15 @@ public class BoardDto {
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public static class Save {
+    public static class SaveDto {
+
         private String context;
         private String title;
         private String userId;
         private String boardType;
 
         @Builder
-        public Save(String context, String title, String userId, String boardType) {
+        public SaveDto(String context, String title, String userId, String boardType) {
             this.context = context;
             this.title = title;
             this.userId = userId;

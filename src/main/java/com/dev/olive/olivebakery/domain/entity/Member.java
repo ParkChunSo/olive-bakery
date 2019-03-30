@@ -12,11 +12,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 @Table(name = "member_tbl")
 public class Member {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true)
@@ -42,7 +44,7 @@ public class Member {
     private List<Board> boards = new ArrayList<>();
 
     @Builder
-    public Member(String email, String pw, String name, String phoneNumber, int stamp){
+    public Member(String email, String pw, String name, String phoneNumber, int stamp) {
         this.email = email;
         this.pw = pw;
         this.name = name;
@@ -50,10 +52,10 @@ public class Member {
         this.stamp = stamp;
     }
 
-    public User toUser(){
+    public User toUser() {
         return new User(email, pw
                 , role.stream()
-                    .map(role -> new SimpleGrantedAuthority("ROLE_" + role.name()))
-                    .collect(Collectors.toSet()));
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.name()))
+                .collect(Collectors.toSet()));
     }
 }
