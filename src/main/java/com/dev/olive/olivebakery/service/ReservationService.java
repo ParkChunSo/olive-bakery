@@ -16,7 +16,6 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by YoungMan on 2019-02-09.
@@ -68,10 +67,8 @@ public class ReservationService {
                     .reservation(reservation)
                     .build());
         }
-
         return reservationInfos;
     }
-
 
     // TODO - 검토필요
     @Explain("예약 정보 수정")
@@ -94,59 +91,32 @@ public class ReservationService {
 
     @Explain("유저의 모든 예약내역을 예약타입별로 가져옴 ")
     public List<ReservationDto.GetDto> getReservationInfos(String email, ReservationType reservationType) {
-
-        List<ReservationDto.GetTmpDto> getTmpDtoObjects = reservationRepository.getReservationInfos(email, reservationType);
-       /* List<ReservationDto.GetTmpDto> getTmpDtos = getTmpDtoObjects.stream()
-                .map(testDto -> new ReservationDto.GetTmpDto(
-                        (Long) testDto[0], (LocalDateTime) testDto[1], (LocalDateTime) testDto[2], (int) testDto[3], (String) testDto[4], (String) testDto[5], (int) testDto[6]
-                )).collect(Collectors.toList());
-*/
-        return convertGetTmpDtosToGetDtos(getTmpDtoObjects);
+        List<ReservationDto.GetTmpDto> getTmpDtos = reservationRepository.getReservationInfos(email, reservationType);
+        return convertGetTmpDtosToGetDtos(getTmpDtos);
     }
 
     @Explain("유저의 가장 최근 예약내역을 예약타입에 무관하게 조회")
     public ReservationDto.GetDto getReservationInfoByRecently(String email) {
-
-       /* List<Object[]> getTmpDtoObjects = reservationRepository.get
-        List<ReservationDto.GetTmpDto> getTmpDtos = getTmpDtoObjects.stream()
-                .map(testDto -> new ReservationDto.GetTmpDto(
-                        (Long) testDto[0], (LocalDateTime) testDto[1], (LocalDateTime) testDto[2], (int) testDto[3], (String) testDto[4], (String) testDto[5], (int) testDto[6]
-                )).collect(Collectors.toList());
-
-        return convertGetTmpDtoToGetDto(getTmpDtos);*/
-       return null;
+        List<ReservationDto.GetTmpDto> getTmpDtos = reservationRepository.getReservationInfoByRecently(email);
+        return convertGetTmpDtoToGetDto(getTmpDtos);
     }
 
     @Explain("날짜별 예약 조회, Admin 에서 사용")
     public List<ReservationDto.GetDto> getReservationInfosByDate(ReservationDto.DateRequestDto dateRequestDto) {
-
         LocalDateTime startDate = dateRequestDto.getSelectDate().atStartOfDay();
-        LocalDateTime endDate = dateRequestDto.getSelectDate().atTime(23,59,59);
+        LocalDateTime endDate = dateRequestDto.getSelectDate().atTime(23, 59, 59);
 
-//        List<Object[]> getTmpDtoObjects = reservationRepository.getReservationInfosByDate(dateRequestDto.getReservationType(), startDate, endDate);
-        List<ReservationDto.GetTmpDto> getTmpDtoObjects = reservationRepository.getReservationInfosByDate(dateRequestDto.getReservationType(), startDate, endDate);
-        /*System.out.println(getTmpDtoObjects.size() + "-----------------------------------------");
-        List<ReservationDto.GetTmpDto> getTmpDtos = getTmpDtoObjects.stream()
-                .map(testDto -> new ReservationDto.GetTmpDto(
-                        (Long) testDto[0], (LocalDateTime) testDto[1], (LocalDateTime) testDto[2], (int) testDto[3], (String) testDto[4], (String) testDto[5], (int) testDto[6]
-                )).collect(Collectors.toList());*/
-
-        return convertGetTmpDtosToGetDtos(getTmpDtoObjects);
+        List<ReservationDto.GetTmpDto> getTmpDtos = reservationRepository.getReservationInfosByDate(dateRequestDto.getReservationType(), startDate, endDate);
+        return convertGetTmpDtosToGetDtos(getTmpDtos);
     }
 
     @Explain("날짜구간별 예약 조회, Admin 에서 사용")
     public List<ReservationDto.GetDto> getReservationInfosByDateRange(ReservationDto.DateRangeRequestDto dateRangeRequestDto) {
-
         LocalDateTime startDate = dateRangeRequestDto.getStartDate().atStartOfDay();
-        LocalDateTime endDate = dateRangeRequestDto.getEndDate().atTime(23,59,59);
+        LocalDateTime endDate = dateRangeRequestDto.getEndDate().atTime(23, 59, 59);
 
-//        List<Object[]> getTmpDtoObjects = reservationRepository.getReservationInfosByDate(dateRangeRequestDto.getReservationType(), startDate, endDate);
-        List<ReservationDto.GetTmpDto> getTmpDtoObjects = reservationRepository.getReservationInfosByDate(dateRangeRequestDto.getReservationType(), startDate, endDate);
-      /*  List<ReservationDto.GetTmpDto> getTmpDtos = getTmpDtoObjects.stream()
-                .map(testDto -> new ReservationDto.GetTmpDto(
-                        (Long) testDto[0], (LocalDateTime) testDto[1], (LocalDateTime) testDto[2], (int) testDto[3], (String) testDto[4], (String) testDto[5], (int) testDto[6]
-                )).collect(Collectors.toList());*/
-        return convertGetTmpDtosToGetDtos(getTmpDtoObjects);
+        List<ReservationDto.GetTmpDto> getTmpDtos = reservationRepository.getReservationInfosByDate(dateRangeRequestDto.getReservationType(), startDate, endDate);
+        return convertGetTmpDtosToGetDtos(getTmpDtos);
     }
 
     // 수령 시간 정보 확인하는 메소드
@@ -170,7 +140,7 @@ public class ReservationService {
 
         List<ReservationDto.ReservationBread> reservationBreads = new ArrayList<>();
 
-        for(ReservationDto.GetTmpDto getTmpDto : getTmpDtos) {
+        for (ReservationDto.GetTmpDto getTmpDto : getTmpDtos) {
             reservationBreads.add(ReservationDto.ReservationBread.builder()
                     .breadName(getTmpDto.getBreadName())
                     .breadCount(getTmpDto.getBreadCount())

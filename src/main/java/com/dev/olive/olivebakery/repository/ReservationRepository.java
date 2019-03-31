@@ -35,25 +35,24 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     List<ReservationDto.GetTmpDto> getReservationInfos(@Param("email") String email, @Param("reservationType") ReservationType reservationType);
 
 
-   /* @Query(value = "select new com.dev.olive.olivebakery.domain.dto.ReservationDto.GetTmpDto(reservation.reservationId, reservation.reservationTime, reservation.bringTime, reservation.price, memeber.name, " +
+    @Query(value = "select new com.dev.olive.olivebakery.domain.dto.ReservationDto$GetTmpDto(reservation.reservationId, reservation.reservationTime, reservation.bringTime, reservation.price, memeber.name, " +
             "bread.name, reservationinfos.breadCount) " +
             "from Reservation reservation " +
             "join reservation.member memeber " +
             "join reservation.reservationInfos reservationinfos " +
             "join reservationinfos.bread bread " +
-            "where memeber.email = :email " +
-            "order by reservation.reservationTime desc")
-    ReservationDto.GetTmpDto getReservationInfoByRecently(@Param("email") String email, Pageable pageable);*/
+            "where reservation.reservationId = (select max(reservation.reservationId) from reservation where memeber.email = :email)")
+    List<ReservationDto.GetTmpDto> getReservationInfoByRecently(@Param("email") String email);
 
 
-    @Query(value = "SELECT new com.dev.olive.olivebakery.domain.dto.ReservationDto$GetTmpDto(reservation.reservationId, reservation.reservationTime, reservation.bringTime, reservation.price, memeber.name, " +
+    @Query(value = "select new com.dev.olive.olivebakery.domain.dto.ReservationDto$GetTmpDto(reservation.reservationId, reservation.reservationTime, reservation.bringTime, reservation.price, memeber.name, " +
             "bread.name, reservationinfos.breadCount) " +
-            "FROM Reservation reservation " +
-            "JOIN reservation.member memeber " +
-            "JOIN reservation.reservationInfos reservationinfos " +
-            "JOIN reservationinfos.bread bread " +
-            "WHERE reservation.reservationType = :reservationType AND reservation.reservationTime > :startDate AND reservation.reservationTime < :endDate ")
-    List<GetTmpDto> getReservationInfosByDate(@Param("reservationType") ReservationType reservationType, @Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
+            "from Reservation reservation " +
+            "join reservation.member memeber " +
+            "join reservation.reservationInfos reservationinfos " +
+            "join reservationinfos.bread bread " +
+            "where reservation.reservationType = :reservationType and reservation.reservationTime > :startDate and reservation.reservationTime < :endDate")
+    List<ReservationDto.GetTmpDto> getReservationInfosByDate(@Param("reservationType") ReservationType reservationType, @Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 }
 
 

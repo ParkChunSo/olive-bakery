@@ -72,11 +72,11 @@ public class ReservationServiceTest {
         //given
         final String email = "testemail";
 
-       /* //when
-        ReservationDto.GetTmpDto getDto = reservationService.getReservationInfoByRecently(email);
+        //when
+        ReservationDto.GetDto getDto = reservationService.getReservationInfoByRecently(email);
 
         //then
-        System.out.println(getDto.toString());*/
+        System.out.println(getDto.toString());
     }
 
     @Test
